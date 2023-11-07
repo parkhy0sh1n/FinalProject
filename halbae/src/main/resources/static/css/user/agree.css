@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+#loginWrap {
+	display:flex;
+}
+
+.loginBox {
+	border: 1px solid rgb(210, 211, 213);
+	margin: 100px auto;
+	width: 420px;
+	height: 650px;
+	padding: 35px 20px;
+	
+}
+
+.agreeTitle {
+ text-align: center;
+ font-size: 24px;
+ font-weight: 400;
+ margin-bottom: 20px;
+}
+/* 상단 캡션 */
+.loginTitle {
+	display: flex;
+	margin-bottom: 50px;
+}
+.loginTitle div {
+	font-size: 20px;
+	font-weight: 300;
+	margin: 0 auto;
+}
+
+/* 체크 박스 */
+input[type="checkbox"] {
+	display: none;
+}	
+label {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+}
+label img {
+	width: 20px;
+	height: 20px;
+}
+
+.checkWrap label{
+	display: flex;
+	height: 20px;
+	line-height: 20px;
+}
+label div {
+	margin-left:5px;
+}
+#checkAll + div {
+		color:#ff0045;
+}
+.agreeLine {
+	height: 1px;
+	border: 1px solid rgb(210, 211, 213); 
+	margin: 10px 0;
+}
+textarea{
+	padding: 3px;
+	display: block;
+	margin: 5px auto;
+	resize: none;
+	outline: none;
+}
+.checkOneWrap {
+	margin-left: 15px;
+}
+.checkCover {
+	margin-bottom: 20px;
+}
+
+/* 로그인 버튼 구역 */
+.loginBtnArea {
+	margin-top: 40px;
+	display:flex;
+}
+.btnWrap {
+	text-align: center;
+	margin: 0 auto;
+}
+.btnWrap button {
+	margin-bottom: 24px;
+	width:350px;
+	height: 45px;
+	background-color: #ff0045;
+	font-size: 18px;
+	color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

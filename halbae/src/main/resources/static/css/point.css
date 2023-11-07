@@ -1,0 +1,31 @@
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#info1 {
+    font-size: 13px;
+    color: #999999;
+    width:400px;
+    background-color: #F6F6F6;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    line-height: 0.3;
+}
+
+#foot {
+    display: flex;
+    justify-content: space-between;
+}
+
+#list {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 200px;
+}
+
+#pointCount {
+    color: red;
+}

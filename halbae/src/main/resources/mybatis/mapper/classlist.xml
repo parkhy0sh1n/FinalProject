@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 @Mapper를 지정한다. -->
+<mapper namespace="com.gdu.halbae.mapper.ClassListMapper">
+
+	<!-- 클래스 리스트 resultMap -->
+	<resultMap type="ClassListDTO" id="ClassListMap">				<!-- resultMap 사용법 -->
+		<id column="CLASS_NO" property="classNo"/> 					<!-- id태그 : PK 칼럼 -->
+		<result column="CLASS_TITLE" property="classTitle"/> 		<!-- result태그 : 일반 칼럼 -->
+		<result column="CLASS_CATEGORY" property="classCategory"/>
+		<result column="CLASS_AREA" property="classArea"/>
+		<result column="CLASS_TIME" property="classTime"/>
+		<result column="CLASS_MONEY" property="classMoney"/>
+		<result column="CLASS_GRADE" property="classGrade"/>
+		<result column="CLASS_MAIN_PATH" property="classMainPath"/>
+		<result column="CLASS_DETAIL_PATH" property="classDetailPath"/>
+		<association javaType="UserDTO" property="userDTO"> 		<!-- association태그 : DTO를 사용 -->
+			<id column="USER_NO" property="userNo"/>
+			<result column="USER_ID" property="userId"/>
+			<result column="USER_PW" property="userPw"/>
+			<result column="USER_NAME" property="userName"/>
+			<result column="USER_TEL" property="userTel"/>
+			<result column="USER_JOIN_DATE" property="userJoinDate"/>
+			<result column="USER_POINT" property="userPoint"/>
+			<result column="USER_IMG_PATH" property="userImgPath"/>
+			<result column="USER_IMG_ORIGIN_NAME" property="userImgOriginName"/>
+			<result column="USER_IMG_FILE_NAME" property="userImgFileName"/>
+			<result column="USER_HAS_IMG" property="userHasImg"/>
+		</association>
+	</resultMap>
+	
+	<!-- 이미지 클래스 resultMap -->
+	<resultMap type="ImgClassDTO" id="ImgClassMap">			
+		<id column="IMG_NO" property="imgNo"/>		
+		<result column="IMG_NAME" property="imgName"/>
+		<result column="IMG_MAIN_PATH" property="imgMainPath"/>
+		<result column="IMG_DETAIL_PATH" property="imgDetailPath"/>
+		<association javaType="ClassListDTO" property="classListDTO"> 		
+			<id column="CLASS_NO" property="classNo"/> 					
+			<result column="CLASS_TITLE" property="classTitle"/> 		
+			<result column="CLASS_CATEGORY" property="classCategory"/>
+			<result column="CLASS_AREA" property="classArea"/>
+			<result column="CLASS_TIME" property="classTime"/>
+			<result column="CLASS_MONEY" property="classMoney"/>
+			<result column="CLASS_GRADE" property="classGrade"/>
+			<result column="CLASS_MAIN_PATH" property="classMainPath"/>
+			<result column="CLASS_DETAIL_PATH" property="classDetailPath"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectAllClass" resultMap="ClassListMap">
+		SELECT *
+		  FROM CLASS_LIST
+	</select>
+	
+	<!-- 전체/카테고리 클래스 -->
+	<select id="getClassListCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM CLASS_LIST
+		 <where>
+		 	<if test="classCategory != 'all'">
+		 		CLASS_CATEGORY = #{classCategory}	
+		 	</if>
+		 </where>
+	</select>
+	
+	<!-- 전체/카테고리 클래스 -->
+	<select id="selectClassList" parameterType="Map" resultMap="ClassListMap">	
+		SELECT A.CLASS_NO, A.CLASS_TITLE, A.CLASS_CATEGORY, A.CLASS_AREA, A.CLASS_TIME, A.CLASS_MONEY, A.CLASS_GRADE, A.CLASS_MAIN_PATH, A.CLASS_DETAIL_PATH, A.USER_NO                     
+		  FROM (SELECT CLASS_NO, CLASS_TITLE, CLASS_CATEGORY, CLASS_AREA, CLASS_TIME, CLASS_MONEY, CLASS_GRADE, CLASS_MAIN_PATH, CLASS_DETAIL_PATH, USER_NO
+		  		FROM CLASS_LIST) A
+		 <where>
+		 	<if test="classCategory != 'all'">
+		 		CLASS_CATEGORY = #{classCategory}	
+		 	</if>
+		 </where>
+		 LIMIT #{begin}, #{recordPerPage}
+	</select>
+	
+	<!-- 전체 클래스 -->
+	<select id="getClassListCountAll" resultType="int">
+		SELECT COUNT(*)
+		  FROM CLASS_LIST
+	</select>
+
+	<!-- 최신 클래스 -->
+	<select id="getClassListCountNew" resultType="int">
+		SELECT COUNT(*)
+		  FROM CLASS_LIST
+	</select>
+	
+	<!-- 최신 클래스 -->
+	<select id="selectClassListNew" parameterType="Map" resultMap="ClassListMap">	
+		SELECT A.CLASS_NO, A.CLASS_TITLE, A.CLASS_CATEGORY, A.CLASS_AREA, A.CLASS_TIME, A.CLASS_MONEY, A.CLASS_GRADE, A.CLASS_MAIN_PATH, A.CLASS_DETAIL_PATH, A.USER_NO                     
+		  FROM (SELECT CLASS_NO, CLASS_TITLE, CLASS_CATEGORY, CLASS_AREA, CLASS_TIME, CLASS_MONEY, CLASS_GRADE, CLASS_MAIN_PATH, CLASS_DETAIL_PATH, USER_NO
+		  		FROM CLASS_LIST) A	
+		 ORDER BY CLASS_NO DESC
+		 LIMIT #{begin}, #{recordPerPage}
+	</select>
+	
+	<!-- 디테일 클래스 -->
+	<select id="selectClassByNo" parameterType="int" resultMap="ClassListMap">            
+		SELECT *
+		  FROM CLASS_LIST
+		 WHERE CLASS_NO = #{classNo}
+	</select>
+	
+	<!-- 클래스 등록 -->
+	<insert id="insertClass" useGeneratedKeys="true" keyProperty="classNo" parameterType="ClassListDTO">
+		INSERT INTO CLASS_LIST(CLASS_TITLE, CLASS_CATEGORY, CLASS_AREA, CLASS_TIME, CLASS_MONEY, CLASS_MAIN_PATH, CLASS_DETAIL_PATH, USER_NO)
+		VALUES(#{classTitle}, #{classCategory}, #{classArea}, #{classTime}, #{classMoney}, #{classMainPath}, #{classDetailPath}, ${userDTO.userNo})
+	</insert>
+	
+	<!-- 등록한 클래스 이미지 뽑는 메퍼 -->
+	<select id="getClassByNo" parameterType="int" resultMap="ClassListMap">
+		SELECT CLASS_NO, CLASS_TITLE, CLASS_CATEGORY, CLASS_AREA, CLASS_TIME, CLASS_MONEY, CLASS_GRADE, CLASS_MAIN_PATH, CLASS_DETAIL_PATH, USER_NO
+		  FROM CLASS_LIST
+		 WHERE CLASS_NO = #{classNo}
+	</select>
+	
+	
+	<!-- USER_NO에 클래스 등록한 CLASS_NO 리스트 -->
+	<select id="selectClassUploadList" parameterType="int" resultType="int">	
+	SELECT CLASS_NO
+	  FROM CLASS_LIST
+	 WHERE USER_NO = #{userNo}
+	</select>
+		
+	<!-- 등록한 클래스 리스트 목록 뽑기 -->
+	<select id="selectUploadList" parameterType="List" resultType="ClassListDTO">
+		SELECT CLASS_NO, CLASS_TITLE, CLASS_CATEGORY, CLASS_AREA, CLASS_TIME, CLASS_MONEY, CLASS_GRADE, CLASS_MAIN_PATH, CLASS_DETAIL_PATH, USER_NO
+		  FROM CLASS_LIST
+		<where>			
+	  		<foreach collection="list" item="classNo" open="CLASS_NO IN(" separator="," close=")">
+	  			#{classNo}
+	  		</foreach>		  	
+	  	</where>
+	</select>
+	
+	<!-- 등록한 클래스 삭제 -->
+	<delete id="removeClass" parameterType="int">
+		DELETE
+		  FROM CLASS_LIST
+		 WHERE CLASS_NO = #{classNo}
+	</delete>
+	
+	<!-- 등록한 클래스 수정 -->
+	<update id="modifyClass" parameterType="ClassListDTO">
+		UPDATE CLASS_LIST
+		   SET CLASS_TITLE = #{classTitle}
+		     , CLASS_CATEGORY = #{classCategory}
+		     , CLASS_AREA = #{classArea}
+		     , CLASS_TIME = #{classTime}
+		     , CLASS_MONEY = #{classMoney}
+		     , CLASS_MAIN_PATH = #{classMainPath}
+		     , CLASS_DETAIL_PATH = #{classDetailPath}
+		 WHERE USER_NO = ${userDTO.userNo} AND CLASS_NO = #{classNo}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 이미지 클래스
+	<select id="selectImgClass" parameterType="int" resultType="ImgClassDTO">	
+		SELECT IMG_NO, IMG_NAME, IMG_MAIN_PATH, IMG_DETAIL_PATH                     
+		  FROM IMG_CLASS
+		 WHERE CLASS_NO = #{classNo}
+	</select>
+	-->
+
+</mapper>

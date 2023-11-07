@@ -1,0 +1,86 @@
+#headerWrap {
+  display: flex;
+  width: 1100px;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+#headerLogo {
+	width:230px;
+}
+#headerSearchArea {
+	display:flex;
+	margin-top: 45px;
+	padding-top:8px;
+	padding-left: 15px;
+	width:400px;
+	height: 50px;
+  border:none;
+  border-radius: 25px;
+  background-color: #f8f8f8;
+}
+
+ #searchBar{
+  width: 330px;
+  height: 35px;
+  padding-left:5px;
+  border: none;
+  outline: none;
+  background-color: #f8f8f8;
+  font-size: 16px;
+}
+
+#searchBtn {
+	width: 30px;
+	height:30px;
+	margin-top:2px;
+  background-color: #f8f8f8;
+}
+
+#searchBtn > i {
+	height:30px;
+  line-height: 30px;
+	opacity: 0.6;
+}
+#headerLogin {
+	padding-left: 370px;
+}
+#headerNav > ul {
+  display: flex;
+  margin-top: 55px;
+}
+#headerNav li {
+	padding: 3px 10px;
+	cursor: pointer;
+}
+.loginLink {
+	margin-top: 55px;
+}
+.profileImg {
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	margin-top: 10px;
+}
+.hidden {
+	display: none;
+}
+.myGnb {
+	position:relative;
+}
+.myLnb {
+ 	position: absolute;
+ 	right: 185px;
+ 	top: 90px;
+ 	background-color: #eef1f1;
+ 	border: 1px solid #c8c8c8;
+ 	border-radius: 10px;
+ 	font-size: 14px;
+ 	cursor: pointer;
+}
+
+
+
+
+
+
+

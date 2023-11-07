@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('전체클래스')}"></head>
+
+<script th:inline="javascript">
+
+	function fnClassUploadList(){
+		location.href = '/class/classUploadList.do';
+	}
+$(function(){
+	var selectedValue = document.getElementById('category').value;
+	console.log(selectedValue);
+})
+
+
+</script>
+
+<style>
+	
+body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="file"],
+input[type="text"],
+select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+input[type="button"] {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="button"]:hover {
+  background-color: #d32f2f;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+.classTitle{
+	margin-bottom: 20px;
+}
+#classTitle{
+	width: 560px;
+	height: 30px;
+}
+#classMoney{
+	margin-bottom: 10px;
+}
+#classList{
+	color: red;
+}
+.classMainPath{
+	display: inline-block;
+}
+.classDetailPath{
+	display: inline-block;
+}
+#uploadMain{
+	display: flex;
+}
+#mainImg {
+	margin-left: 50px;
+}
+#uploadDetail{
+	display: flex;
+}
+#detailImg{
+	margin-left: 50px;
+}
+#img{
+	border: 1px solid gray;
+}
+#uploadCategory{
+	display: flex;
+}
+#classCategory{
+	margin-left: 20px;
+}
+</style>
+
+<body>
+
+	<div th:replace="~{/layout/header::gnbFrag}"></div>
+	
+	<h1>클래스 편집(수정) 화면입니다.</h1>
+	<div class="container">
+		<form method="POST" enctype="multipart/form-data" th:action="@{/class/classModify.do(classNo=${classList.classNo})}">
+			<div id="uploadMain">
+				<div class="classMainPath">
+					<label for="classMainPath">메인이미지</label>
+					<input id="classMainPath" type="file" name="classMainPath" required="required">
+				</div>
+				<div id="mainImg">
+					현재 등록된 메인이미지
+					<img th:src="@{/class/display.do(classNo=${classList.classNo})}" width="180px;" height="100px;">
+				</div>
+			</div>
+			<div id="uploadDetail">
+				<div class="classDetailPath">
+					<label for="classDetailPath">상세이미지</label>
+					<input id="classDetailPath" type="file" name="classDetailPath" required="required">
+				</div>
+				<div id="detailImg">
+					현재 등록된 상세이미지
+					<img id="img" th:src="@{/class/displayDetail.do(classNo=${classList.classNo})}" width="180px;" height="150px;">
+				</div>
+			</div>
+			<div class="classTitle">
+				<label for="classTitle">제목</label>
+				<input id="classTitle" name="classTitle" th:value="${classList.classTitle}" required="required">
+			</div>
+			<div id="uploadCategory">
+				<div>
+					<select id="category" name="classCategory" style="width:150px; height:40px;" th:value="${classList.classCategory}" required="required">
+			              <option id="categoryChecke" value="">카테고리(선택)</option>
+			              <option value="cooking">요리/베이킹</option>
+			              <option value="fitness">피트니스/스포츠</option>
+			              <option value="study">개발/공부</option>
+			              <option value="dance">댄스</option>
+			              <option value="design">디자인</option>
+				    </select>
+			    </div>
+			</div>
+			<div>
+				<label for="classArea">위치(지역)</label>
+				<input id="classArea" name="classArea" th:value="${classList.classArea}" required="required">
+			</div>
+			<div>
+				<label for="classTime">강의 시간</label>
+				<input id="classTime" name="classTime" th:value="${classList.classTime}" required="required">
+			</div>
+			<div id="classMoney">
+				<label for="classMoney">강의 비용</label>
+				<input id="classMoney" name="classMoney" th:value="${classList.classMoney}" required="required">
+			</div>
+			<div>
+				<button>수정완료</button>
+				<input type="button" value="클래스 등록 목록" onclick="fnClassUploadList()">
+			</div>
+		</form>
+	</div>
+	<div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>

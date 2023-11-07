@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('Apply Form')}"></head>
+
+<link rel="stylesheet" th:href="@{/css/paySuccess.css(ver=1.0)}">
+
+
+<script th:inline="javascript">
+
+	function fnGoClass(){
+		location.href= '/class/classDetail.do?classNo=' + $('#classNo').val();
+	}
+
+</script>
+<body>
+<div th:replace="~{/layout/header::gnbFrag}"></div>
+
+	<div id="main_wrap">
+		<div id="main_box">
+			<div id="img1"><img th:src="@{/images/enroll/paySuccess.png}" width="70px"></div>
+			<div id="paySuccess">결제가 완료되었어요.</div>
+			<div id="userNameBox">
+				<div><img th:src="@{/images/enroll/wing_L.png}" width="50px"></div>
+				<div th:text="|${session.userName}님|" id="userName"></div>
+				<div id="soon">&nbsp;&nbsp;곧 만나요</div>
+				<div><img th:src="@{/images/enroll/wing_R.png}" width="50px"></div>
+			</div>
+			<div id="orderNum" th:text="|주문번호 : &nbsp; ${orderNumber}|"></div>
+
+			<div th:object="${map.classListDTO}" id="classBox">
+				<h2>신청하신 클래스</h2>
+				<div id="applyClass">
+					<input type="hidden" th:value="*{classNo}" id="classNo">
+					<img th:src="*{classMainPath}" width="200px" id="classImage">
+					<div id="classInfo">
+						<div th:text="*{classTitle}" id="classTitle"></div>				
+						<div th:object="${map.scheduleDTO}">
+							<th:block th:if="*{schMaxNum != 100}">
+								<div th:text="*{#dates.format(schStart,'yyyy년 M월 d일 H시')}"></div>
+							</th:block>
+							<th:block th:if="*{schMaxNum == 100}">
+								<div>작가님과 협의&nbsp;&nbsp;(신청 후 메세지 부탁드려요 :)</div>
+							</th:block>
+						</div>
+						<button id="btnClass" onclick="fnGoClass()">수업페이지</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+		<div id="bottom">
+			<p>고객께 더 나은 서비스 제공을 위해 노력하겠습니다.</p>
+			<p>감사합니다. &nbsp;- 김민서, 조우민, 장종찬, 이현주 -<p>
+			<img th:src="@{/images/우리/코딩민서.png}" width="100px"><img th:src="@{/images/우리/코딩우민.png}" width="100px">
+			<img th:src="@{/images/우리/코딩종찬.png}" width="100px"><img th:src="@{/images/우리/코딩현주.png}" width="100px">
+		</div>
+<div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>

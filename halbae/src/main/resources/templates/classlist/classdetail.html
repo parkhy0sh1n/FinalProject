@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('Main')}"></head>
+<link rel="stylesheet" href="/css/classDetail.css" />
+
+<script th:inline="javascript">
+   // 기본값으로 상세보기 탭 선택
+   $(document).ready(function() {
+      openTab('detail');
+   });
+   
+   // 탭 열고 닫기
+   function openTab(tabName) {
+        if (tabName === 'review') {
+            loadReviewTabContent();
+        }
+        $('.tabs button').removeClass('active');
+        $('#' + tabName + 'Btn').addClass('active');
+        $('.tab-content').hide();
+        $('#' + tabName).show();
+    }
+
+   function openTab(tabName) {
+       if (tabName === 'review') {
+           // Make an AJAX request to retrieve the review content
+           $.ajax({
+               url: '/review/list?classNo=[[${imgClass.classNo}]]',
+               type: 'GET',
+               success: function(response) {
+                   // Replace the content of the review tab with the retrieved reviewList HTML
+                   $('#review').html(response);
+               },
+               error: function(error) {
+                   console.error('Error loading review content:', error);
+               }
+           });
+       }
+       $('.tabs button').removeClass('active');
+       $('#' + tabName + 'Btn').addClass('active');
+       $('.tab-content').hide();
+       $('#' + tabName).show();
+   }
+
+   $(function() {      
+      var categoryName = /*[[${imgClass.classCategory}]]*/ null;
+      function categoryChange() {
+         if(categoryName == 'cooking' ) {
+            $('.categoryName').text('요리/베이킹');
+         }else if(categoryName == 'fitness' ){
+            $('.categoryName').text('피트니스/스포츠');
+         }else if(categoryName == 'study' ){
+            $('.categoryName').text('개발/공부');
+         }else if(categoryName == 'dance' ){
+            $('.categoryName').text('댄스');
+         }else if(categoryName == 'design' ){
+            $('.categoryName').text('디자인');
+         }
+      }
+      
+      
+   function fnEnroll() {
+    let classNo = /*[[${classNo}]]*/ null;
+    location.href='/enroll/apply.page?classNo=' + classNo;
+    }
+   
+   
+   // 함수호출
+   categoryChange();
+   })
+   
+   // 메시지창 팝업    열기
+   function openMessage() {
+       // 팝업 창을 열기 위한 설정
+       var popupWidth = 500;
+       var popupHeight = 800;
+       var left = (screen.width - popupWidth) / 2;
+       var top = (screen.height - popupHeight) / 2;
+       var popupOptions = 'width=' + popupWidth + ', height=' + popupHeight + ', left=' + left + ', top=' + top;
+       // 팝업 창을 열고 해당 HTML 페이지를 로드
+       window.open('/chat/list2', '메시지', popupOptions);
+   }
+   
+   function fnEnroll() {
+         let classNo = /*[[${classNo}]]*/ null;
+         location.href='/enroll/apply.page?classNo=' + classNo;
+      }
+   
+</script>
+
+<body>
+   <div th:replace="~{/layout/header::gnbFrag}"></div>
+  
+   <div id="all">
+      <div id="detailMain">
+         <!-- <div id="category">
+            <span>카테고리 [</span><span class="categoryName"></span><span>]</span>
+         </div> -->
+      <ul id="text">
+         <li>원데이· </li>
+         <li th:text="${imgClass.classArea}"></li>
+         <li>· 최대 6명</li>
+      </ul>
+         <h1 th:text="${imgClass.classTitle}"></h1>
+         <ul id="profile">
+              <li class="profile-container">
+            <div class="left-section">
+               <!-- 회원 프로필사진 가져오기(0이면 기본 프로필 사진, 1이면 회원이 등록한 프로필 사진) -->
+               <div class="profile-image">
+                   <img id="images1" src="https://s3.ap-northeast-2.amazonaws.com/taling.me/Content/Uploads/Profile/s_15db7d017ca94ded79119b94b46d8e2b9d4873d4.jpg" alt="Profile Image">
+               </div>
+                 </div>
+               <div class="right-section">
+                  <!-- 회원 정보 -->
+                  <div class="profile-info">
+                     <!-- 회원 닉네임 가져오기 (userName + 튜터) -->
+                         <p class="userName">어썸블리스 튜터</p>
+                     <!-- 클래스 평점 평균과 리뷰 수 가져오기 -->
+                     <span class="rating">
+                        <span class="star">★</span>
+                        <span class="rating-info">&nbsp;5.0(7)</span>
+                     </span>
+                  </div>
+                  </div>
+            </li>
+         </ul>
+      <div id="imgMain">
+         <th:block th:if="${imgClass.classNo <= 50}">
+            <img th:src="${imgClass.classMainPath}" width="700px;" height="500px;">
+        </th:block>
+        <th:block th:if="${imgClass.classNo > 50}">
+            <img th:src="@{/class/display.do(classNo=${imgClass.classNo})}" width="700px;" height="500px;">
+        </th:block>
+      </div>
+      </div>
+      
+      <!-- 스케줄 -->
+      <div id="scjMain">
+         <div id="scjsub">
+              <h2 id="classScj">&nbsp;&nbsp;클래스 일정</h2>
+              <ul id="class-info">
+                 <th:block th:each="sch,vs:${scheduleList}">
+                 <th:block th:if="${sch.schState != 2}">
+                   <li class="schduleList">
+                      <div th:text="|🌺&nbsp;&nbsp;${#dates.format(sch.schStart,'yyyy년 M월 d일 H시')} |" class="schStart"></div>
+                        <div class="block">
+                           <span th:text="|&nbsp;(${sch.schNowNum}|"></span>
+                           <span th:text="| /${sch.schMaxNum}명) |" class="schNum"></span>
+                           <th:block th:if="${sch.schState == 0}">
+                             <span class="unavailable">마감</span>
+                          </th:block>
+                          <th:block th:if="${sch.schState == 1}">
+                              <span class="available">가능</span>
+                          </th:block>
+                        </div>
+                   </li>
+               </th:block>
+               <th:block th:if="${sch.schState == 2}">
+                   <li class="scheduleArray">
+                  <span class="undefined">🌺&nbsp;&nbsp;작가님과 협의 후 결정</span>
+                   </li>
+               </th:block>
+                 </th:block>
+              </ul>
+              
+            <div th:object="${classList}" id="applyClass">
+              <p id="moneyTime">
+                 <span th:text="|총 *{classMoney} / |"></span>
+                 <span th:text="*{classTime}" id="classTime"></span>
+              </p>
+              <ul id="heartClass">
+                 <li id="heart">
+                    <input type="hidden" class="classNo" th:value="${imgClass.classNo}">
+	                   <img th:id="${imgClass.classNo}" class="wish" style="cursor:pointer;" th:src="@{/images/classList/heart/heart2.png}" onclick="fnWishAdd(this)">   
+                </li>
+                <li>
+                    <a id="class" onclick="fnEnroll()">클래스 신청하기</a>
+                </li>
+              </ul>
+            </div>
+              <ul id="chattingMain">
+                 <li>
+                    <button id="chatting" onclick="openMessage()">
+                       <img id="chat" th:src="@{/images/classList/heart/chat.png}">
+                       튜터에게 문의하기
+                    </button>
+                    
+                 </li>
+              </ul>
+           </div>
+      </div>
+   </div>
+   <script th:inline="javascript">
+               var wishList = /*[[${wishList}]]*/ null;
+               console.log(wishList);
+               function chkWish() {
+                  for(let i=0; i < wishList.length; i++) {
+                     console.log(wishList[i]);
+                     $('#' + wishList[i]).attr('src', '/images/classList/heart/heart1.png');
+                  }
+               }
+               chkWish();
+            
+               function fnWishAdd(vThis){
+                  
+                  $.ajax({
+                     // 요청
+                     type: 'get',
+                     url: '/wish/wish.do',
+                     data: 'classNo=' + $(vThis).siblings('.classNo').val(),
+                     // 응답
+                     dataType: 'json',
+                     success: function(resData){
+                        if(resData.insertResult == 1){
+                           alert('찜 등록이 되었습니다.');
+                           $(vThis).attr('src', '/images/classList/heart/heart1.png');
+                        }else if(resData.removeResult == 1){
+                           alert('찜 등록이 삭제되었습니다.');
+                           $(vThis).attr('src', '/images/classList/heart/heart2.png');
+                        }
+                     
+                     }
+                     
+                  })
+                  
+               }
+               
+               
+               
+               // 함수호출
+                        
+            </script>
+      
+      
+    <div class="tabs">
+        <button onclick="openTab('detail')" id="detailBtn">CLASS</button>
+        <button onclick="openTab('review')" id="reviewBtn">REVIEW</button>
+    </div>
+     <!-- 클래스 소개 탭 -->
+    <div id="detail" class="tab-content">
+       <th:block th:if="${imgClass.classNo <= 50}">
+           <img th:src="${imgClass.classDetailPath}" width="1100px;" height="4300px;">
+      </th:block>
+      <th:block th:if="${imgClass.classNo > 50}">
+           <img th:src="@{/class/displayDetail.do(classNo=${imgClass.classNo})}" width="1100px;" height="4300px;">
+      </th:block>
+     </div>
+    <!-- 리뷰 탭 -->
+    <div id="review" class="tab-content"></div>
+    <div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>

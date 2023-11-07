@@ -1,0 +1,12 @@
+#footerWrap{
+	border-top: 2px solid #c8c8c8;
+	font-size: 13px;
+	color: #999999;
+	width: 1200px;
+	margin:0 auto;
+	padding: 40px 60px;
+	margin-top: 50px;
+}
+#footerWrap > div {
+	margin-bottom: 8px;
+}

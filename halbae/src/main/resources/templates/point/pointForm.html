@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포인트</title>
+	<script th:src="@{/js/lib/jquery-3.6.4.min.js}"></script>
+    <link rel="stylesheet" href="/css/point.css" />
+</head>
+<body>
+
+   <form id="container">
+	    <div id="header">
+	        <h3>포인트</h3>
+	    </div>
+	    <div id="info1">
+	        <p>&nbsp;&nbsp;&nbsp;수강하신 수업의 리뷰를 작성하시면 포인트를 적립할 수 있어요!</p>
+	        <p>&nbsp;&nbsp;&nbsp;[ 포토 리뷰 2000P / 텍스트 리뷰 500P ]</p>
+	    </div>
+	    <div id="foot">
+	        <p id="list">포인트 내역</p>
+			<p>보유 포인트 <span style="color: red; font-weight: bold;" th:text="|${userPoint}P|"></span></p>
+	    </div>
+	</form>
+
+</body>
+</html>

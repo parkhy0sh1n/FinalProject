@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+.enrollListTitle {
+	text-align: left;
+	font-size: 25px;
+	color: #333333;
+	margin-bottom: 18px;
+}
+.enrollWrap {
+	margin-top: 50px;
+	display: flex;
+	justify-content: left;
+	margin-left: 28px;
+}
+
+.noEnrolls1 {
+	font-size: 13px;
+	color: #333333;
+	margin-bottom: 28px;
+}
+.noEnrolls2 {
+	font-size: 14px;
+	margin-bottom: 80px;
+}
+
+.enrolls {
+	display: flex;
+	margin-bottom: 20px;
+}
+
+.thumbnail {
+	width: 200px;
+	height: 120px;
+	margin-right: 28px;
+}
+
+.enrollInfo {
+	margin-top: 12px;
+}
+
+.location {
+	color: #FF0A5D;
+	margin-right:3px;
+}
+.area {
+	background-color: #FF0A5D;
+	padding:2px;
+	border-radius: 5px;
+	font-size: 13px;
+	color:white;
+	margin-right: 5px;
+}
+.schStart {
+	color:#FF0A5D;
+	font-size: 15px;
+}
+.locationWrap {
+	margin-bottom: 5px;
+}
+.title {
+	font-size: 18px;
+	color: #333333;
+	font-weight: 410;
+}
+.gradeWrap {
+	display: flex;
+}
+.grade span {
+	color: #FF0A5D;
+	font-size: 16px;
+}
+.grade span::selection {
+   	background: none;
+}
+.won {
+	font-size: 15px;
+	color: #FF0A5D;
+	margin-left: 500px;
+}
+.classMoney {
+	font-size: 23px;
+	font-weight: 500;
+	color: #FF0A5D;
+}
+  .classMoney::after {
+    content: '';
+    display: none;
+  }
+.classTime {
+	font-size: 13px;
+	color: #333333;
+}
+
+

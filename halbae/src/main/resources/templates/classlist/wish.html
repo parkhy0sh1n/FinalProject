@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('전체클래스')}"></head>
+
+<script th:inline="javascript">
+$(function(){
+	/*
+	$('.heart').on('click', function(){
+		if($(this).attr('src') =='/images/classList/heart/heart1.png') {
+			$(this).attr('src', '/images/classList/heart/heart2.png');							
+		}else {
+			$(this).attr('src', '/images/classList/heart/heart1.png');
+		}
+	})
+	*/
+})
+
+</script>
+
+<style>
+   #wishMain {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 30px;
+   }
+   #wishTitle {
+      margin-right: 220px;
+      margin-bottom: 20px;
+      font-size: 35px;
+   }
+   #wish {
+      font-weight: 600;
+      font-size: 30px;
+   }
+   .imgMain {
+      margin-top: 30px;
+      margin-left: 200px;
+      margin-right: 10px;
+   }
+   .Title {
+   		margin-bottom: 3px;
+   }
+   .titleMain{
+   		margin-bottom: 7px;
+   }
+   .addressMain{
+   		margin-bottom: 3px;
+   		font-size: 19px;
+   		border: 1px solid #3390ff;
+		display: inline;
+   }
+   .address{
+   		border-color: #3390ff;
+		color: #3390ff;
+   }
+   .timeMoney{
+   		margin-bottom: 3px;
+   		font-size: 20px;
+   		margin-top: 7px;
+   }
+   .money{
+   		color: red;
+   }
+   .gradeMain{
+   		margin-bottom: 10px;
+   		font-size: 19px;
+   }
+   .grade{
+   		color: red;
+   }
+   #Main {
+      display: flex;
+      align-items: center;
+   }
+   .container{
+   		display: flex;
+   }
+   .textMain{
+   		margin-left: 30px;
+   		margin-top: 70px;
+   }
+   .heartMain{
+   		margin-top: 10px;
+   }
+</style>
+
+<body>
+
+   <div th:replace="~{/layout/header::gnbFrag}"></div>
+   
+   <div>
+   
+      <div id="wishMain">
+         <h1 id="wishTitle">나의 하루배움</h1>
+         <ul>
+            <li>
+               <a id="wish" th:href="@{/wish/listWish.do}">찜</a>
+            </li>
+         </ul>
+      </div>
+      <hr>
+                    
+      <div>
+         <div id="Main">
+            <div id="wishMini">
+               <th:block th:each="class:${classList}">
+               <div class="container">
+               
+       			 <div>
+           			<a th:href="@{/class/classDetail.do(classNo=${class.classNo})}">
+           			<th:block th:if="${class.classNo <= 50}">
+						<img class="imgMain" th:src="${class.classMainPath}" width="400px;">
+					</th:block>
+					<th:block th:if="${class.classNo > 50}">
+						<img class="imgMain" th:src="@{/class/display.do(classNo=${class.classNo})}" width="400px;" height="270px;">
+					</th:block>
+           		 	</a>
+        		</div>
+                
+                  <div class="textMain">
+	                  <div class="titleMain">
+	                     <h2 class="Title" th:text="${class.classTitle}"></h2>
+	                  </div>
+	                  <div class="addressMain">
+	                  	<span class="address" th:text="${class.classArea}">위치</span>
+	                  </div>
+	                  <p class="timeMoney">
+						<span th:text="${class.classTime}">소요시간</span> /
+						<strong><span class="money" th:text="${class.classMoney}">총금액</span></strong>
+					 </p>
+					 <div>
+                 		<span class="grade" >
+						    <span th:each="star : ${#numbers.sequence(1, 5)}">
+						        <span style="display: inline-block;" th:text="${class.classGrade >= star ? '★' : '☆'}"></span>
+						    </span>
+						</span>
+	                 </div>
+	                 <div class="heartMain">
+	                     <input type="hidden" class="classNo" th:value="${class.classNo}">
+	                     <img class="heart" style="cursor:pointer;" th:src="@{/images/classList/heart/heart1.png}" width="30px;">
+	                 </div>
+                  </div>
+                  
+               </div>
+               </th:block>
+            </div>
+         </div>
+      </div>
+      
+   </div>
+   
+   <script>
+   
+   $('.heart').on('click', function(){
+	    if(confirm('찜을 삭제하시겠습니까?')) {
+	        location.href = '/wish/removeWish.do?classNo=' + $(this).siblings('.classNo').val();
+	    }
+	});
+    
+   </script>
+   
+   <div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>

@@ -1,0 +1,247 @@
+#all{
+   margin-top: 20px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+}
+#detailMain{
+   width: 1000px;
+   margin-left: 100px;
+}
+#scjMain{
+   border: 3px solid #F8F8F8;
+   width: 360px;
+   height: 510px;
+   margin-top: 130px;
+   margin-left: 30px;
+   margin-right: 190px;
+   padding: 20px 20px 30px;
+   border-radius: 8px;
+}
+#scjsub{
+   width: 315px;
+   height: 470px;
+}
+#classScj{
+   font-size: 28px;
+   margin-bottom: 15px;
+}
+#class-info li p {
+    margin: 0; /* 원하는 간격으로 조정해주세요 */
+}
+
+#class-info li span {
+    display: block;
+    margin-top: 0px; /* 원하는 간격으로 조정해주세요 */
+}
+#timeChoice{
+   font-size: 14px;
+   margin-bottom: 10px;
+}
+#address{
+   font-size: 14px;
+   margin-bottom: 10px;
+}
+#addressDetail{
+   font-size: 14px;
+   color: #999999;
+}
+#moneyTime1{
+   margin-top: 170px;
+   font-size: 15px;
+   margin-left: 200px;
+   font-weight: bold;
+}
+#moneyTime2{
+   font-size: 15px;
+   margin-left: 150px;
+}
+#heartClass{
+   display: flex;
+   margin-top: 15px;
+}
+#heart{
+   border: 2px solid #EEEEEE;
+   width: 50px;
+   height: 50px;
+   padding-top: 15px;
+   padding-left: 13px;
+   border-radius: 8px;
+}
+
+#wish {
+	width: 20px;
+	height: 20px;
+}
+
+#chat {
+	width: 20px;
+	height: 20px;
+}
+
+#class{
+   font-size: 15px;
+   width: 240px;
+   height: 50px;
+   display: block;
+   text-align:center;
+   padding-top: 11px;
+   margin-left: 20px;
+   background-color: #FF0F48;
+   color: white;
+   border-radius: 8px;
+   border: 1px solid #EEEEEE;
+}
+
+#chattingMain{
+   margin-top: 15px;
+}
+
+#chatting{
+   width: 310px;
+   height: 50px;
+   font-size: 15px;
+   border-radius: 8px;
+   border: 2px solid #EEEEEE;
+   background-color: white;
+   text-align:center;
+   justify-content: center;
+   align-items: center;
+   display: flex; 
+}
+
+h1 {
+   margin-bottom: 20px;
+   margin-left: 80px;
+   font-size: 28px;
+   width: 780px;
+}
+#imgMain {
+   margin-bottom: 10px;
+   margin-left: 80px;
+}   
+
+#text {
+   margin-top: 20px;
+   margin-bottom: 10px;
+   margin-left: 80px;
+   color: #EB334B;
+   font-size: 14px;
+   text-align: left;
+   font-weight: bold;
+}
+#text li {
+   display: inline-block;
+}
+
+#category {
+   margin-top: 25px;
+   margin-left: 80px;
+   font-size: 20px;
+   font-weight: 600;
+   color: red;
+}
+
+/* 하단 탭(선택된 탭은 검은색 border, 선택되지 않은 탭은 회색 border로 설정하여 구분) */
+.tabs {
+   margin-top: 20px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+}
+.tabs button {
+   padding: 10px;
+   background-color: #ffffff;
+   border: 1px solid #d3d3d3;
+   cursor: pointer;
+   width: 630px;
+   height: 70px;
+   font-size: 18px;
+   font-weight: bold;
+}
+.tabs button:focus {
+    outline: none;
+}
+.tabs button.active {
+    background-color: #ffffff;
+    border: 2px solid #EC3951;
+}
+.tabs button:not(.active) {
+    border: 1px solid #d3d3d3;
+}
+.tab-content {
+   display: none;
+   text-align: center; 
+}
+
+.profile-container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+#profile {
+    align-items: left;
+    padding-inline-start: 80px;
+}
+
+.left-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.right-section {
+    flex: 1;
+    margin-left: 10px;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.profile-info p {
+    margin: 5px 0;
+}
+
+.rating {
+	display: flex;
+}
+
+.star  {
+	color: red;
+	font-size: 13px;
+}
+.rating span::selection {
+   	background: none;
+}
+
+.rating-info {
+	font-size: 13px;
+}
+
+#images1 {
+    width: 40px;
+    height: 40px;
+}
+
+.profile-image img {
+    border-radius: 50%;
+}
+
+.userName {
+	font-size: 14px;
+}
+
+.profile-info .userName {
+    margin-bottom: 0px;
+}
+
+.profile-info .rating {
+    margin-top: 0px;
+}
+

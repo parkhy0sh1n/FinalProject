@@ -1,0 +1,141 @@
+body {
+    margin-top: 200px;
+}
+
+a {
+    color: black; /* 링크의 색상을 검정색으로 변경 */
+    font-size: 18px;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.t {
+	font-size: 33px; 
+	font-weight: bold;
+	color: #333333;
+}
+
+.m-1 {
+	font-size: 22px;
+	color: #646464;
+}
+
+.m-2 {
+	font-size: 22px; 
+	font-weight: bold;
+	color: #EC3951;
+}
+
+.profile-image img {
+    border-radius: 50%;
+    margin-top: 14px;
+}
+
+.review-container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.left-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.right-section {
+    flex: 1;
+    margin-left: 10px;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 10px;
+}
+
+.profile-info p {
+    margin: 5px 0;
+}
+
+.attachment-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 10px;
+}
+
+.attachment-list li {
+    margin-top: 5px;
+}
+
+.attachment-list img {
+    max-width: 100%;
+    height: auto;
+}
+
+#likes-container {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+#like-count {
+    margin-left: 5px;
+}
+
+#like-image {
+    width: 18px;
+    height: 18px;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+}
+
+#review {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#review p {
+    text-align: center;
+}
+
+#reviewList {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding-inline-start: 380px;
+}
+
+#images1 {
+    width: 40px;
+    height: 40px;
+}
+
+#reviewAttachList {
+  display: flex;
+  justify-content: flex-start;
+}
+
+#link {
+    margin-left: 400px;
+}
+
+/* 리뷰 별점 */
+.rating {
+	display: flex;
+}
+
+.rating span {
+	color: gold;
+	font-size: 20px;
+}
+.rating span::selection {
+   	background: none;
+}

@@ -1,0 +1,296 @@
+#all{
+   margin-top: 20px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+}
+#detailMain{
+   width: 1000px;
+   margin-left: 100px;
+}
+
+#heartClass{
+   display: flex;
+   margin-top: 15px;
+}
+#heart{
+   border: 2px solid #EEEEEE;
+   width: 50px;
+   height: 50px;
+   padding-top: 15px;
+   padding-left: 13px;
+   border-radius: 8px;
+}
+
+.wish {
+   width: 20px;
+   height: 20px;
+}
+
+#chat {
+   width: 20px;
+   height: 20px;
+}
+
+#class{
+   font-size: 15px;
+   width: 240px;
+   height: 50px;
+   display: block;
+   text-align:center;
+   padding-top: 11px;
+   margin-left: 25px;
+   background-color: #FF0F48;
+   color: white;
+   border-radius: 8px;
+   border: 1px solid #EEEEEE;
+}
+#class:hover{
+   cursor: pointer;
+}
+
+#chattingMain{
+   margin-top: 60px;
+}
+
+#chatting{
+   width: 310px;
+   height: 50px;
+   font-size: 15px;
+   border-radius: 8px;
+   border: 2px solid #EEEEEE;
+   background-color: white;
+   text-align:center;
+   justify-content: center;
+   align-items: center;
+   display: flex; 
+}
+
+h1 {
+   margin-bottom: 20px;
+   margin-left: 80px;
+   font-size: 28px;
+   width: 780px;
+}
+#imgMain {
+   margin-bottom: 10px;
+   margin-left: 80px;
+}   
+
+#text {
+   margin-top: 20px;
+   margin-bottom: 10px;
+   margin-left: 80px;
+   color: #EB334B;
+   font-size: 14px;
+   text-align: left;
+   font-weight: bold;
+}
+#text li {
+   display: inline-block;
+}
+
+#category {
+   margin-top: 25px;
+   margin-left: 80px;
+   font-size: 20px;
+   font-weight: 600;
+   color: red;
+}
+
+/* 하단 탭(선택된 탭은 검은색 border, 선택되지 않은 탭은 회색 border로 설정하여 구분) */
+.tabs {
+   margin-top: 20px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+}
+.tabs button {
+   padding: 10px;
+   background-color: #ffffff;
+   border: 1px solid #d3d3d3;
+   cursor: pointer;
+   width: 630px;
+   height: 70px;
+   font-size: 18px;
+   font-weight: bold;
+}
+.tabs button:focus {
+    outline: none;
+}
+.tabs button.active {
+    background-color: #ffffff;
+    border: 2px solid #EC3951;
+}
+.tabs button:not(.active) {
+    border: 1px solid #d3d3d3;
+}
+.tab-content {
+   display: none;
+   text-align: center; 
+}
+
+.profile-container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+#profile {
+    align-items: left;
+    padding-inline-start: 80px;
+}
+
+.left-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.right-section {
+    flex: 1;
+    margin-left: 10px;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.profile-info p {
+    margin: 5px 0;
+}
+
+.rating {
+   display: flex;
+}
+
+.star  {
+   color: red;
+   font-size: 13px;
+}
+.rating span::selection {
+   background: none;
+}
+
+.rating-info {
+   font-size: 13px;
+}
+
+#images1 {
+    width: 40px;
+    height: 40px;
+}
+
+.profile-image img {
+    border-radius: 50%;
+}
+
+.userName {
+   font-size: 14px;
+}
+
+.profile-info .userName {
+    margin-bottom: 0px;
+}
+
+.profile-info .rating {
+    margin-top: 0px;
+}
+
+
+/* 스케줄 목록 */
+#scjMain{
+    border: 3px solid #efefef;
+    width: 380px;
+    height: 510px;
+    margin-right: 250px;
+    padding: 20px 20px 30px;
+    border-radius: 8px;
+    }
+#scjsub{
+    width: 330px;
+    height: 470px;
+   }
+#classScj{
+    font-size: 25px;
+    color: #3d3d3c;
+    margin-bottom: 15px;
+   }
+
+#class-info {
+    height: 280px;
+    border: 1px solid #e2e2e2;
+    overflow-y: scroll;
+   }
+.schduleList {
+    height: 90px;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid gray;
+   }
+.schduleList:last-of-type {
+    border-bottom: none;
+   }
+.schStart {
+   font-size: 17px;
+   font-weight: 500;
+   padding-left: 10px;
+   }
+.scheduleArray {
+    border-bottom: none;
+    margin-bottom: 10px;
+    padding: 15px;
+   }
+.block {
+   display: block;
+   display: flex;
+   align-items: center;
+   margin-top: 5px;
+   margin-left: 15px;
+   }
+.schNum {
+   margin-right: 2px;
+   }
+.available {
+   width: 42px;
+   height: 27px;
+   color: #60bbdc;
+   text-align: center;
+   border: 1px solid #60bbdc;
+   border-radius: 10px;
+   text-align: center;
+   margin: 5px;
+   margin-left: 10px;
+   }
+.unavailable {
+   width: 42px;
+   height: 27px;
+   color: #f75535;
+   border: 1px solid #f75535;
+   border-radius: 10px;
+   text-align: center;
+   margin: 5px;
+   margin-left: 10px;
+   }
+   
+
+/* 작가님과 협의 */
+.undefined {
+   font-size: 17px;
+   font-weight: 500;
+   padding-left: 5px;
+   }
+#moneyTime{
+    color: #4a4a49;
+    margin-top: 20px;
+    font-size: 22px;
+    margin-left: 120px;
+    font-weight: bold;
+    }
+ #classTime {
+ 	font-size: 18px;
+ 	}

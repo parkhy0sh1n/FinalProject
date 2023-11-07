@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('나의 프로필')}"></head>
+<link rel="stylesheet" th:href="@{/css/header.css(ver=1.0)}">
+<link rel="stylesheet" th:href="@{/css/user/myprofile.css(ver=1.0)}">
+<body>
+
+	<div th:replace="~{/layout/header::gnbFrag}"></div>
+	
+	<div class="profileContainer">
+		<div class="profileWrap">
+			<div class="profileTitle">내 프로필</div>
+			<div class="sectionLine"></div>
+			
+			<form id="editFrm" method="post" th:action="@{/user/editProfile.do}">
+				<div class="profileImgArea">
+					<input type="hidden" id="userImgPath" name="userImgPath" th:value="${userDTO.userImgPath}">	
+					<img class="userImg" th:src="@{${userDTO.userImgPath}}">
+				</div>
+				<div class="profileBtn">
+					<label for="newProfile" class="newProfile">사진 선택</label>
+					<input type="file" id="newProfile">
+				</div>
+				<div class="sectionLine"></div>
+					
+				<div class="InfoArea">
+					<div class="category">이메일(ID)</div>
+					<div class="userId content" th:text="${userDTO.userId}"></div>
+				</div>
+				<div class="sectionLine"></div>
+				
+				<div class="InfoArea">
+					<div class="category">비밀번호</div>
+					<input type="button" value="비밀번호 변경하기" class="modifyPw" onclick="location.href='/user/modifyPw.html?userId=' + $('#userId').val()">
+				</div>
+				<div class="sectionLine"></div>
+			
+				<div class="InfoArea">
+					<div class="category">전화번호</div>
+					<div class="content userTel" th:text="${userDTO.userTel}"></div>
+				</div>
+				<div class="sectionLine"></div>
+			
+				<div class="InfoArea">
+					<div class="category">이름(별명)</div>
+					<input class="content userName" name="userName" th:value="${userDTO.userName}">
+					<span class="content nameCaption">ex) 홍길동, 타코와사비</span>
+				</div>
+				<div class="sectionLine"></div>
+				<input type="hidden" id="userId" name="userId" th:value="${userDTO.userId}">
+				<input type="button" class="editProfile" value="적용하기" onclick="$('#editFrm').submit()">
+			</form>
+			<div class="deleteWrap">
+				<form id="deleteUserFrm" method="post" th:action="@{/user/deleteUser.do}">
+					<input type="hidden" name="userId" th:value="${userDTO.userId}">
+					<button type="button" class="deleteUser" onclick="fnAskDelete()">자기개발 포기하고 패배자로 살기</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>

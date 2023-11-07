@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포인트</title>
+	<script th:src="@{/js/lib/jquery-3.6.4.min.js}"></script>
+	<script>
+	
+	function fnClick(){
+		var payPoint = parseInt($('#payPoint').val());
+		var userPoint = parseInt($('#userPoint').val());
+		if(payPoint > userPoint) {
+			alert('보유 포인트를 초과하였습니다.');
+			event.preventDefault();
+		    return;
+		}
+		window.opener.location.href='/enroll/payment.page?payPoint=' + payPoint + '&payCoupon=' + $('#payCoupon').val() + '&schNo=' + $('#schNo').val();
+		window.close();
+	}
+	
+	</script>
+	
+    <link rel="stylesheet" href="/css/pointUse.css" />
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+	    	<img th:src="@{/images/enroll/point.png}" width="100px" style="padding-left: 5px;">
+	        <h3 style="font-size: 23px;">나의 포인트</h3>
+	    </div>
+	    <div id="info1">
+	    	<input type="hidden" th:value="${userPoint}" id="userPoint">
+	        <p id="list">보유 포인트 <span style="color: red; font-weight: bold;" th:text="|&nbsp;&nbsp;${userPoint}P|"></span></p>
+	    </div>
+	    <div id="foot">
+	        <span id="list2">포인트 사용</span>
+			<input type="text" id="payPoint">
+			<button type="button" id="btn" onclick="fnClick()">사용</button>
+	    </div>
+	</div>
+<!-- 숨겨진 파라미터 값 -->
+	<input type="hidden" id="payCoupon" th:value="${payCoupon}">
+	<input type="hidden" id="schNo" th:value="${schNo}">
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="headFrag(title)">
+  <meta charset="UTF-8">
+  <meta name="contextPath" th:content="${#servletContext.contextPath}" />
+  <title th:text="${title}"></title>
+  <script th:src="@{/js/lib/jquery-3.6.4.min.js}"></script>
+  <link rel="stylesheet" th:href="@{/css/init.css(ver=1.0)}">
+  <link rel="stylesheet" th:href="@{/css/header.css(ver=1.0)}">
+  <link rel="stylesheet" th:href="@{/css/footer.css(ver=1.0)}">
+  <script th:src="@{/js/user/headerFn.js(ver=1.0)}"></script>
+  <script th:src="@{/js/user/userFn.js(ver=1.0)}"></script>
+  <script th:inline="javascript">
+  	var alertPw = /*[[${alertPw}]]*/ null;
+  	if(alertPw != null) {
+  		alert(alertPw);
+  	}
+  </script>
+</head>
+
+
+<body>
+      
+        <div id="headerWrap" th:fragment="gnbFrag">
+            <form id="profileFrm" method="get" th:action="@{/user/myProfile.html}">
+               <input type="hidden" name="loginId" th:value="${session.loginId}">
+            </form>
+           <form id="logoutFrm" method="post" th:action="@{/user/logout.do}">
+               <input type="hidden" th:value="${session.loginId}" name="loginId">
+            </form>
+           <div id="headerLogo">
+          <a th:href="@{/}"><img th:src="@{/images/logo_hb.gif}" width="230px;"/></a>
+        </div>
+        <form id="searchFrm">
+           <fieldset id="headerSearchArea">           
+            <input id="searchBar" placeholder="하루의 배움을 만나보세요." />
+            <button id="searchBtn">
+               <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+            </button>
+           </fieldset>
+            </form>
+            <th:block th:if="${session.loginId != null}">
+           <nav id="headerNav">
+             <ul>
+               <li>
+                 <p><a th:href="@{/class/classUpload.html}">튜터메뉴</a></p>
+               </li>
+               <li>
+                <div onclick="openMessage()">메세지</div>
+               </li>
+               <li>
+                 <p>클래스신청서</p>
+               </li>
+               <li>
+                 <p><a th:href="@{/user/enrollList.do}">수강목록</a></p>
+               </li>
+               <li>
+                 <p><a th:href="@{/wish/listWish.do}">찜</a></p>
+               </li>
+               <li>
+                  <div class="myGnb" onclick="fnToggleLnb()">
+                    My <i class="fa-solid fa-chevron-down"></i>
+                 </div>
+                 <ul class="myLnb hidden">
+                    <li onclick="$('#profileFrm').submit()"><span>내 프로필</span></li>
+                    <li th:onclick="|openCoupon(${session.userNo})|" ><span>내 쿠폰</span></li>
+                    <li onclick="openPoint()"><span>내 포인트</span></li>
+                    <li onclick="$('#logoutFrm').submit()"><span>로그아웃</span></li>
+                 </ul>
+               </li>
+             </ul>
+           </nav>
+        </th:block>
+        <th:block th:if="${session.loginId == null}">
+           <nav id="headerLogin">
+              <ul class="loginLink">
+                 <li>
+                    <p><a th:href="@{/user/login.html}">로그인</a></p>
+                 </li>
+              </ul>
+           </nav>
+        </th:block>
+      </div>
+
+</body>
+</html>

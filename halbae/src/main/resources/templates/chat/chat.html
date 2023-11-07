@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reviewList</title>
+    <link rel="stylesheet" href="/css/chat.css" />
+</head>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
+<script th:inline="javascript">
+
+
+	
+</script>
+
+<body>
+
+    <div class="chat-container">
+	    <div class="header">
+	        <img src="/images/chat/logo.jpg">
+	        <p>하루배움 메시지로 간편하게 문의해보세요!</p>
+	    </div>
+	    <div class="chatMessages">
+	        <!-- 채팅 메시지 출력 -->
+	        <ul>
+	            <li th:each="message : ${messages}">
+	                <p th:text="${message.message}"></p>
+	                <p th:text="${message.sendTime}"></p>
+	            </li>
+	        </ul>
+	    </div>
+	    <div class="send">
+	        <form id="send-message-form" action="#" method="post">
+	            <input type="text" id="messageInput" name="message" placeholder="메시지 보내기" required>
+	            <button type="submit" id="sendMessageButton">
+	                <img src="/images/chat/send.jpg">
+	            </button>
+	        </form>
+	    </div>
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리뷰</title>
+	<script th:src="@{/js/lib/jquery-3.6.4.min.js}"></script>
+    <link rel="stylesheet" href="/css/reviewForm.css" />
+</head>
+
+<script th:inline="javascript">
+	
+	// 10자 이하 작성하면 작성하기 버튼이 동작하지 않고 '최소 10자 이상 작성해주세요.' 경고창 나오는 로직
+    function validateReviewContent(event) {
+        const reviewContent = document.querySelector('.comment').value;
+        if (reviewContent.length < 10) {
+            event.preventDefault();
+            document.querySelector('.error-msg').style.display = 'block';
+        }
+    }
+	
+    function submitReviewForm(event) {
+        event.preventDefault(); // 폼 제출 기본 동작을 막습니다.
+
+        // 리뷰 작성 처리 및 성공적으로 완료되었을 때 팝업 창을 닫습니다.
+        $.ajax({
+            url: event.target.action,
+            type: 'POST',
+            data: new FormData(event.target),
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                window.close();
+            },
+	        error: function(response) {
+	            window.close();
+        }
+        });
+
+        return false;
+    }
+
+    
+</script>
+
+<body>
+
+	<!-- 리뷰 작성 폼 -->
+	<div class="container">
+	    <div class="header">
+	        <p>포토 리뷰</p>
+	        <p>텍스트 리뷰</p>
+	    </div>
+	    <form th:action="@{/review/write}" method="post" enctype="multipart/form-data" onsubmit="return submitReviewForm(event)">
+			<!-- classNo hidden 필드 추가 -->
+        	<input type="hidden" name="classNo" th:value="${classNo}" />
+	        <div class="form-group">
+	            <label for="rating">클래스는 만족하셨나요?</label>
+	            <div class="rating">
+	                <input type="radio" id="star5" name="reviewGrade" value="5">
+	                <label for="star5"></label>
+	                <input type="radio" id="star4" name="reviewGrade" value="4">
+	                <label for="star4"></label>
+	                <input type="radio" id="star3" name="reviewGrade" value="3">
+	                <label for="star3"></label>
+	                <input type="radio" id="star2" name="reviewGrade" value="2">
+	                <label for="star2"></label>
+	                <input type="radio" id="star1" name="reviewGrade" value="1">
+	                <label for="star1"></label>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label for="comment">어떤 점이 좋았거나 아쉬웠나요?</label>
+	            <textarea class="comment" name="reviewContent" placeholder="최소 10자 이상 작성해주세요." required></textarea>
+	            <span class="error-msg" style="display: none; color: red;">최소 10자 이상 작성해주세요.</span>
+	        </div>
+	        <div class="form-group">
+	            <label for="fileInput" class="file">사진 첨부하기</label>
+	            <input type="file" id="fileInput" name="reviewAttachList" multiple="multiple" accept="image/*" style="display: none;">
+	        </div>
+	        <div class="form-group">
+	            <input type="submit" class="button" value="작성완료" onclick="validateReviewContent(event)">
+	        </div>
+	    </form>
+	</div>
+
+</body>
+</html>

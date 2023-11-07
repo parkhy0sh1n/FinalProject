@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 @Mapper를 지정한다. -->
+<mapper namespace="com.gdu.halbae.mapper.PaymentMapper">
+
+	<!-- 해당 쿠폰 조회 -->
+	<select id="selectCouponByNo" parameterType="int" resultType="CouponDTO">
+		SELECT *
+		  FROM COUPON
+		 WHERE COUPON_NO = #{couponNo}
+	</select>
+	
+	<!-- 신청 번호 조회 -->
+	<select id="selectEnrollNo" parameterType="int" resultType="EnrollDTO">
+		SELECT A.*
+		  FROM (SELECT *
+				  FROM ENROLL
+		  		 WHERE USER_NO = #{userNo}
+				 ORDER BY ENROLL_DATE DESC) A
+		 LIMIT 1
+	</select>
+	
+	<!-- 결제 추가 -->
+	<insert id="insertPayment" parameterType="PaymentDTO">
+		INSERT INTO PAYMENT(ENROLL_NO, PAY_AMOUNT, PAY_SALE, PAY_METHOD) 
+			VALUES( #{enrollNo}
+				 , #{payAmount}
+				 , #{paySale}
+				 , #{payMethod}
+				 )
+	</insert>
+	
+ 	<!-- 포인트 수정 -->
+	<update id="updateUserPoint" parameterType="Map">
+		UPDATE USER
+		   SET USER_POINT = (USER_POINT - #{point})
+		 WHERE USER_NO = #{userNo}
+	</update>
+	
+	<!-- 쿠폰 삭제  -->
+	<delete id="deleteCoupon" parameterType="Map">
+		DELETE FROM COUPON_USER
+			WHERE USER_NO = #{userNo}
+				AND COUPON_NO = #{couponNo}
+	</delete>
+	
+	
+	<!-- *** 결제완료 창 *** -->
+	<!-- 스케줄번호 조회 -->
+	<select id="selectEnroll" parameterType="int" resultType="int">
+		SELECT SCH_NO
+          FROM ENROLL
+         WHERE ENROLL_NO = #{enrollNo}	
+	</select>
+	<!-- 클래스번호 조회 -->
+	<select id="selectClassNoBySchNo" parameterType="int" resultType="int">
+		SELECT CLASS_NO
+          FROM SCHEDULE
+         WHERE SCH_NO = #{schNo}	
+	</select>
+
+	<!-- 결제취소 (Enroll 삭제) -->
+	<delete id="deleteEnroll" parameterType="int">
+		DELETE FROM ENROLL
+			WHERE #{enrollNo}
+	</delete>
+
+</mapper>

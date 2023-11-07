@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('회원가입 약관동의')}"></head>
+<link rel="stylesheet" th:href="@{/css/user/agree.css(ver=1.0)}">
+<link rel="stylesheet" th:href="@{/css/header.css(ver=1.0)}">
+<script th:src="@{/js/user/agree.js}"></script>
+<script th:src="@{/js/user/checkbox.js}"></script>
+
+<body>
+	<div th:replace="~{/layout/header::gnbFrag}"></div>
+	<div id="loginWrap">
+		<div class="loginBox">
+				 <div class="agreeTitle">환영합니다!</div>
+			<div class="loginTitle">
+				 <div>원활한 서비스 이용을 위해<br>&nbsp;&nbsp;&nbsp;약관에 동의해주세요.</div>
+			</div>
+			<div class="checkContainer">	
+				<div class="checkWrap">
+					<label for="checkAll">
+						<img src="/images/user/check_off.png">
+						<input type="checkbox" id="checkAll">
+						<div>전체 선택</div>
+					</label>
+				</div>
+				<div class="agreeLine"></div>
+				<div class="checkCover">
+					<div class="checkWrap checkOneWrap">
+						<label for="checkService">
+							<img src="/images/user/check_off.png">
+							<input type="checkbox" id="checkService" class="checkOne">
+							<div>서비스 이용약관 (필수)</div>
+						</label>
+					</div>
+					<textarea cols="50" rows="3" readonly> 회사는 회원의 서비스 이용에 제한을 둘 수 있으며, 부적절한 행동이나 악의적인 목적을 가진 회원의 계정은 임시 또는 영구적으로 정지될 수 있습니다. 서비스 이용 규정을 준수하지 않는 회원에 대한 조치는 회사의 판단에 따라 이루어질 수 있습니다.</textarea>
+				</div>
+				<div class="checkCover">
+					<div class="checkWrap checkOneWrap">
+						<label for="checkInfo">
+							<img src="/images/user/check_off.png">
+							<input type="checkbox" id="checkInfo" class="checkOne">
+							<div>개인정보처리방침 (필수)</div>
+						</label>
+					</div>
+					<textarea cols="50" rows="3" readonly> 개인정보의 수집 및 이용 회사는 회원의 개인정보를 수집할 수 있으며, 수집된 개인정보는 회원 가입, 서비스 제공, 문의 응대 등을 위한 목적으로 사용됩니다. 개인정보 수집 시에는 회원의 동의를 받으며, 수집된 개인정보는 관련 법령에 따라 적절히 보호 및 관리됩니다.</textarea>
+				</div>
+				<div class="checkCover">
+					<div class="checkWrap checkOneWrap">
+						<label for="checkAge">
+							<img src="/images/user/check_off.png">
+							<input type="checkbox" id="checkAge" class="checkOne">
+							<div>회원가입 14세 미만 이용약관 (선택)</div>
+						</label>
+					</div>
+					<textarea cols="50" rows="3" readonly> ① 이용자가 14세 미만인 경우, 법적인 규정에 따라 부모님 또는 법정 대리인의 동의를 받아야 합니다. 회원가입 시 부모님 또는 법정 대리인의 정보를 제공해야 합니다. &nbsp;② 부모님 또는 법정 대리인의 동의 없이 회원가입하는 경우, 서비스 이용이 제한될 수 있습니다. &nbsp;③ 회원가입 시 제공되는 개인정보는 관련 법률에 따라 보호되며, 부모님 또는 법정 대리인의 동의 없이 제3자에게 제공되지 않습니다.</textarea>
+				</div>
+			</div>
+			<form id="agreeFrm" method="post" th:action="@{/user/successJoin.do}">
+				<input type="hidden" name="userName" th:value="${userDTO.userName}">
+				<input type="hidden" name="userTel" th:value="${userDTO.userTel}">
+				<input type="hidden" name="userId" th:value="${userDTO.userId}">
+				<input type="hidden" name="userPw" th:value="${userDTO.userPw}">
+			</form>
+				<div class="loginBtnArea">
+					<div class="btnWrap">
+							<button type="button" onclick="isAllChecked()">시작하기</button>
+					</div>
+				</div>
+	  </div>
+  </div>
+  <div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>

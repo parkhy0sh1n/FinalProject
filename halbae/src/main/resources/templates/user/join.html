@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('회원가입')}"></head>
+<link rel="stylesheet" th:href="@{/css/user/join.css(ver=1.0)}">
+<link rel="stylesheet" th:href="@{/css/header.css(ver=1.0)}">
+<script th:src="@{/js/user/reg.js}"></script>
+
+<body>
+	<div th:replace="~{/layout/header::gnbFrag}"></div>
+	<div id="loginWrap">
+		<div class="loginBox">
+			<div class="loginTitle">
+				 <div>간편하게 가입하고 하루배움의<br>&nbsp;&nbsp;&nbsp;다양한 튜터를 만나보세요.</div>
+			</div>	
+			<form id="joinFrm" method="post" th:action="@{/user/agree.html}">
+				<div class="loginInput">
+					<div class="inputWrap">
+						<div>
+							<input id="userName" name="userName" placeholder="이름(별명)을 입력해주세요." autocomplete="off">
+							<div class="idLine"></div>
+						</div>
+						<div>
+							<input id="userTel" name="userTel" placeholder="연락처를 입력해주세요. ( - 제외 )" autocomplete="off">
+							<div class="idLine"></div>
+						</div>
+						<div>
+							<input type="hidden" id="unqMsg" th:value="${unqMsg}">
+							<input id="userId" name="userId" placeholder="이메일을 입력해주세요." autocomplete="off">
+							<div class="idLine"></div>
+						</div>
+						<div>
+							<input type="password" id="userPw" name="userPw" placeholder="비밀번호 (숫자 대소문자 특수문자 포함 4~20자)">
+							<i class="fa-regular fa-eye-slash viewPw pwIcon1" onclick="togglePw()"></i>
+							<div class="idLine"></div>
+						</div>
+						<div>
+							<input type="password" id="chkUserPw" placeholder="비밀번호를 재입력해주세요.">
+							<i class="fa-regular fa-eye-slash viewPw pwIcon2" onclick="toggleChkPw()"></i>
+							<div class="idLine"></div>
+						</div>
+					</div>
+				</div>
+			</form>
+					<div id="reg"></div>
+				<div class="loginBtnArea">
+					<div class="btnWrap">
+							<button onclick="checkJoin()">다음</button>
+					</div>
+				</div>
+	  </div>
+  </div>
+  <div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>

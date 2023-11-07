@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gdu.halbae.mapper.ChatMapper">
+
+	<select id="getConversationList" resultType="ConversationDTO">
+        SELECT * 
+          FROM CONVERSATION
+    </select>
+
+    <select id="getConversation" parameterType="int" resultType="ConversationDTO">
+        SELECT * 
+          FROM CONVERSATION 
+         WHERE CON_ID = #{conId}
+    </select>
+
+    <select id="getMessageList" parameterType="int" resultType="MessageDTO">
+        SELECT * 
+          FROM MESSAGE 
+         WHERE CON_ID = #{conId}
+    </select>
+
+    <insert id="sendMessage">
+        INSERT INTO MESSAGE (CON_ID, USER_NO, MESSAGE, SEND_TIME)
+        VALUES (#{conId}, #{userNo}, #{message}, NOW())
+    </insert>
+
+    <update id="exitChatRoom">
+        UPDATE CONVERSATION 
+           SET CON_STATE = 0 
+         WHERE CON_ID = #{conId} 
+           AND USER_NO = #{userNo}
+    </update>
+
+    <delete id="deleteChatRoom">
+        DELETE 
+          FROM CONVERSATION 
+         WHERE CON_ID = #{conId}
+    </delete>
+    
+</mapper>

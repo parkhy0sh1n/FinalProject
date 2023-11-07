@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('비밀번호 찾')}"></head>
+<link rel="stylesheet" th:href="@{/css/user/login.css(ver=1.0)}">
+<link rel="stylesheet" th:href="@{/css/header.css(ver=1.0)}">
+<script th:src="@{/js/user/userFn.js}"></script>
+
+<body>
+	<div th:replace="~{/layout/header::gnbFrag}"></div>
+	<div id="loginWrap">
+		<div class="findBox">
+			<form id="tempPwFrm" method="post" th:action="@{/user/tempPw.do}">
+				<div class="loginTitle">
+					<div>이메일로 임시 비밀번호를 보내드려요.</div>
+				</div>	
+				<div class="loginInput">
+					<div class="inputWrap">
+							<div class="inputTitle">아이디</div>
+							<input id="userId" name="userId" placeholder="비밀번호를 찾으실 아이디를 입력해주세요.">
+							<div class="idLine"></div>
+						<div class="idArea receiveEmailArea">
+							<div class="inputTitle">이메일</div>
+							<input id="email" placeholder="비밀번호를 받으실 이메일 주소를 입력해주세요.">
+							<div class="idLine"></div>
+						</div>
+					</div>
+				</div>
+				<input type="hidden" id="tempPw" name="userPw"/>
+			</form>
+			<button class="sendPw" onclick="fnTempPw()">찾아주세요... 제발 ㅠ</button>
+	  </div>
+  </div>
+  <div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>

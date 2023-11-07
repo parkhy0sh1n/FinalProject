@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('전체클래스')}"></head>
+
+<script th:inline="javascript">
+	var removeResult = /*[[${removeResult}]]*/ null;
+	if(removeResult != null){
+		if(removeResult == 1){
+			alert('등록된 클래스가 삭제되었습니다.');
+		}else{
+			alert('등록된 클래스 삭제가 실패되었습니다.');
+		}
+	}
+	
+	var modifyResult = /*[[${modifyResult}]]*/ null;
+	if(modifyResult != null){
+		if(modifyResult == 1){
+			alert('클래스가 수정되었습니다.');
+		}else{
+			alert('클래스 수정이 실패되었습니다.');
+		}
+	}
+
+</script>
+
+<style>
+
+.container {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.imgMain {
+  width: 400px;
+  border-radius: 5px;
+}
+
+.textMain {
+  margin-left: 20px;
+  flex-grow: 1;
+}
+
+.Title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.addressMain {
+  margin-bottom: 10px;
+}
+
+.timeMoney {
+  margin-bottom: 10px;
+}
+
+.gradeMain {
+  margin-bottom: 10px;
+  color: red;
+}
+
+.heartMain {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.edit{
+	cursor: pointer;
+	width: 70px;
+  	height: 30px;
+	font-size: 15px;
+	font-weight: 600;
+	background-color: green;
+	color: white;
+	border: none;
+	border-radius: 5px;
+}
+
+.remove {
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+  width: 50px;
+  height: 30px;
+  font-size: 15px;
+  font-weight: 600;
+  background-color: red;
+  border: none;
+  border-radius: 5px;
+}
+h1{
+	margin-top: 10px;
+	margin-bottom: 20px;
+  	text-align: center;
+}
+</style>
+
+<body>
+
+	<div th:replace="~{/layout/header::gnbFrag}"></div>
+	
+	<h1>클래스 등록 목록 화면입니다.</h1>
+	
+	<div>
+	
+      <hr>
+                    
+      <div>
+         <div id="Main">
+            <div id="wishMini">
+               <th:block th:each="class:${classUploadList}">
+               <div class="container">
+               
+       			 <div>
+           			<a th:href="@{/class/classDetail.do(classNo=${class.classNo})}">
+           			<th:block th:if="${class.classNo <= 50}">
+						<img class="imgMain" th:src="${class.classMainPath}" width="400px;">
+					</th:block>
+					<th:block th:if="${class.classNo > 50}">
+						<img class="imgMain" th:src="@{/class/display.do(classNo=${class.classNo})}" width="400px;" height="270px;">
+					</th:block>
+           		 	</a>
+        		</div>
+                
+                  <div class="textMain">
+	                  <div>
+	                     <h2 class="Title" th:text="${class.classTitle}"></h2>
+	                  </div>
+	                  <div class="addressMain">
+	                  	<span class="address" th:text="${class.classArea}">위치</span>
+	                  </div>
+	                  <p class="timeMoney">
+						<span th:text="${class.classTime}">소요시간</span> /
+						<strong><span class="money" th:text="${class.classMoney}">총금액</span></strong>
+					 </p>
+					 <div class="gradeMain">
+					 	<span class="grade" >
+						    <span th:each="star : ${#numbers.sequence(1, 5)}">
+						        <span style="display: inline-block;" th:text="${class.classGrade >= star ? '★' : '☆'}"></span>
+						    </span>
+						</span>
+	                 </div>
+	                 <div class="heartMain">
+	                     <input type="hidden" class="classNo" th:value="${class.classNo}">
+	                     <input type="button" class="edit" value="편집(수정)" onclick="fnEdit(this)">
+	                     <input type="button" class="remove" value="삭제" onclick="fnRemove(this)">
+	                 </div>
+                  </div>
+                  
+               </div>
+               </th:block>
+            </div>
+         </div>
+      </div>
+      
+   </div>
+<script th:inline="javascript">
+	
+	function fnRemove(vThis) {
+	    var classNo = $(vThis).parent().find('.classNo').val();
+	    location.href = '/class/classUploadRemove.do?classNo=' + classNo;
+	}
+	
+	function fnEdit(vThis) {
+	    var classNo = $(vThis).parent().find('.classNo').val();
+	    location.href = '/class/classEdit.do?classNo=' + classNo;
+	}
+	
+</script>
+	<div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>

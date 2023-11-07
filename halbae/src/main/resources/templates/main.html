@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('Main')}"></head>
+
+<link rel="stylesheet" th:href="@{/css/main.css(ver=1.0)}">
+<link rel="stylesheet" th:href="@{/css/user/logBox.css(ver=1.0)}">
+<script th:src="@{/js/lib/jquery-3.6.4.min.js}"></script>
+<script th:src="@{/js/user/userFn.js}"></script>
+
+<script>
+/* 메인배너 변환 */
+var imgArray=new Array();
+imgArray[0]="/images/main/bigBanner1.png";
+imgArray[1]="/images/main/bigBanner2.png";
+
+var imgNum = 1;
+function showImage(){
+	 var objImg=document.getElementById("bigBanner");
+	 objImg.style.opacity = 0.2;
+	 
+	 setTimeout(function() {
+		objImg.src=imgArray[Math.floor(imgNum%2)];
+	 	objImg.style.opacity = 1;
+	 },500);
+	 imgNum++;	 
+	 setTimeout(showImage,3500);
+}
+
+
+/* 클래스 카테고리 바 */
+function fnList(classCategory) {
+   location.href='class/classList.do?classCategory=' + classCategory;   
+}
+function fnNew(){
+   location.href='class/classListNew.do';
+}
+</script>
+
+<script th:inline="javascript">
+$(function(){
+	var uploadResult = /*[[${uploadResult}]]*/ null;
+	if(uploadResult != null){
+		if(uploadResult == 1){
+			alert('클래스가 등록되었습니다.');
+		}else{
+			alert('클래스가 등록되지 않았습니다.');
+		}
+	}
+   
+   // 카테고리 파라미터 영어로 오는데 화면에는 한글로 표시하는 코드!
+   var categoryName = /*[[${categoryName}]]*/ null;
+   function categoryChange() {
+      if(categoryName == 'cooking' ) {
+         $('.categoryName').text('요리/베이킹');
+      }else if(categoryName == 'fitness' ){
+         $('.categoryName').text('피트니스/스포츠');
+      }else if(categoryName == 'study' ){
+         $('.categoryName').text('개발/공부');
+      }else if(categoryName == 'dance' ){
+         $('.categoryName').text('댄스');
+      }else if(categoryName == 'design' ){
+         $('.categoryName').text('디자인');
+      }
+   }
+   
+   var onLogin = /*[[${session.userNo}]]*/ null;
+   
+   $('.heart').on('click', function(){
+	  if(onLogin != null) {
+	      if($(this).attr('src') =='/images/classList/heart/heart2.png') {
+	         $(this).attr('src', '/images/classList/heart/heart1.png');                     
+	      }else {
+	         $(this).attr('src', '/images/classList/heart/heart2.png');
+	      }
+	  }
+   })
+   
+   // var wishResult = /*[[${wishResult}]]*/ null;
+   /*
+   if(wishResult != null){
+      if(wishResult == 1){
+         $('.heart').on('click', function(){
+            if($(this).attr('src') =='/images/classList/heart/heart2.png') {
+               $(this).attr('src', '/images/classList/heart/heart1.png');                     
+            }
+         })
+         alert('찜등록이 되었습니다.');
+      }else{
+         alert('찜등록이 실패했습니다.')
+      }
+   }
+   */
+   
+   /*
+   // 로그인 안하고 클릭시 (로그인 후 사용 가능합니다.) alert 띄우고, 로그인 페이지로 이동하기
+   // 찜 등록/삭제 함수
+   $('.heart').on('click', function(){
+      if($(this).attr('src') =='/images/classList/heart/heart2.png') {
+         $(this).attr('src', '/images/classList/heart/heart1.png');   
+         location.href = '/wish/wish.do?classNo=' + $(this).siblings('.classNo').val();
+      }else{
+         $(this).attr('src', '/images/classList/heart/heart2.png');
+         alert('찜에서 삭제되었습니다.');
+         location.href = '/wish/removeWish.do?classNo=' + $(this).siblings('.classNo').val();
+      }
+      
+   })
+   */
+   
+   
+   
+   
+   
+   // 함수호출
+   categoryChange();
+})
+</script>
+
+
+<style>
+   #category {
+      font-size: 13px;
+      margin-bottom: 15px;
+      width:100px; 
+      height:40px;
+      text-align: center;
+      border: 1px solid #DAE6EB; 
+      background-color: #FAFAFC; 
+      border-radius: 5px;
+   }
+	#category:hover {
+        background-color: #E7E9ED; 
+    }
+   button {
+	  font-size: 13px;
+      margin-bottom: 15px;
+      width:50px; 
+      height:40px;
+      text-align: center;
+      border: 1px solid #DAE6EB; 
+      background-color: #FAFAFC; 
+      border-radius: 5px;
+   }
+   	button:hover {
+        background-color: #E7E9ED; 
+    }
+   #search {
+      margin-top: 10px;
+   }
+   #class {
+      box-sizing: border-box;
+   }
+   #class ul {
+      display: flex;
+      flex-wrap: wrap;
+
+   }
+   
+   .classmini {
+      width: 280px;
+      height: 430px;
+      line-height: 30px;
+      margin-right: 10px;
+   }
+   #categoryResult {
+      color: #FF0A5D;
+      font-size: 12px;
+	  border: 1px solid #DAE6EB; 
+	  width: 120px;
+	  height:30px;
+      border-radius: 25px;
+      text-align: center;
+      padding: 3px;
+      padding-top: 4px;
+   }
+   .imgWrap {
+      display: flex;
+   }
+   .mainContainer {
+      display: flex;
+      flex-direction: column;
+      width: 1200px;
+      margin: 0 auto;
+      margin-top: 60px;
+   }
+   .addressMain1{
+      margin-top: 2px;
+       margin-bottom: 0px;
+      
+   }
+   .addressMain {
+      border: 1px solid #3390ff;
+      border-radius: 3px;
+      display: inline;
+      padding: 0px 5px;
+     	padding-bottom: 4px;
+     	font-weight: 600;
+     	 margin: 0px;
+     	
+   }
+   .address {
+      border-color: #3390ff;
+      color: #3390ff;
+      font-size: 10px;
+   }
+   .classTitle {
+   	font-size: 13px;
+   	font-weight: 430;
+   	 margin: 0px;
+   }
+   .classTitle {
+  width: 280px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+   .classTime {
+   	font-size: 12px;
+   	 margin: 0px;
+   }
+   .heartMain {
+      display: flex;
+      justify-content: space-between;
+      margin: 0px;
+   }
+   .grade {
+      color: red;
+   }
+   #pagination{
+      display: flex;
+      justify-content: center;
+   }
+.strong {
+   color: black;
+     float: left;
+     padding: 8px 16px;
+     text-decoration: none;
+     transition: background-color 0.3s;
+     border: 1px solid #ddd;
+}
+.strong,active{
+   background-color: #4CAF50;
+     color: white;
+     border: 1px solid #4CAF50;
+}
+.strong:hover:not(.active) {
+     background-color: #ddd;
+  }
+#pagination a {
+     color: black;
+     float: left;
+     padding: 8px 16px;
+     text-decoration: none;
+     transition: background-color 0.3s;
+     border: 1px solid #ddd;
+}
+
+#pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+#pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+@media screen and (max-width: 600px) {
+  #pagination a {
+    float: none;
+    display: block;
+    text-align: center;
+  }
+  .strong {
+    float: none;
+    display: block;
+    text-align: center;
+  }
+}
+
+.heart {
+	width: 15px;
+	height: 15px;
+	margin-right: 50px;
+}
+.mainList{
+	width: 1200px;
+	margin: 0 auto;
+	margin-top: 50px;
+	
+}
+.classWrap {
+	margin-left: 30px;
+}
+.classmini {
+	height: 350px;
+}
+
+</style>
+
+<body onload="showImage()">
+
+<div th:replace="~{/layout/header::gnbFrag}"></div>
+
+<div class="main_container">
+  
+  	<div class="main_top">
+  		<div class="main_top_L">
+	  		<div class="login_box">
+	  			<!-- 로그인이 안되어 있을 경우 -->
+	  			<th:block th:if="${session.loginId == null}">
+						<div class="loginWord">
+							로그인하시고 하루배움의 <br> 다양한 튜터를 만나보세요.
+						</div>
+						<div>
+							<button class="loginBtn" onclick="location.href='/user/login.html'">로그인하기</button>
+						</div>
+						<div class="linkWrap">
+							<div>
+								<span onclick="fnFindId()">아이디 찾기</span>
+								<span>&nbsp;|&nbsp;</span>
+								<span onclick="fnFindPw()">비밀번호 찾기</span>
+							</div>
+							<div onclick="location.href='/user/join.html'" style="cursor: pointer;">회원가입</div>
+						</div>
+		  		</th:block>
+		  		 <!-- 로그인이 되어 있을 경우 -->
+		  		<th:block th:if="${session.loginId != null}">
+		  			<div class="welcomeBox">
+							<form id="profileFrm" method="get" th:action="@{/user/myProfile.html}">
+								<input type="hidden" name="loginId" th:value="${session.loginId}">
+			  				<img th:src="@{${session.userImgPath}}" class="profile" onclick="$('#profileFrm').submit()">
+			  			</form>
+			  			<div>
+			  				<span th:text="|${session.userName} 님|"style="font-size: 18px; font-weight: bold;"></span> 반가워요
+			  				
+			  			</div>
+			  			<form method="post" th:action="@{/user/logout.do}">
+			  				<input type="hidden" th:value="${session.loginId}" name="loginId">
+				  			<button class="logoutBtn">로그아웃</button>
+			  			</form>
+		  			</div>
+			  		<div class="eventBox">
+			  			<div th:onclick="|openCoupon(${session.userNo})|" >쿠폰 <span style="font-weight: bold;" th:text="|${couponCount}장|"></span></div>
+			  			<div onclick="openPoint()">포인트 <span style="font-weight: bold;" th:text="|${session.userPoint}P|"></span></div>
+			  		</div>
+			  		<div class="serviceBox">
+			  			<div onclick="openMessage()">메세지</div>
+			  			<div onclick="location.href='/user/enrollList.do'">수강 목록</div>
+			  			<div><a th:href="@{/wish/listWish.do}"><img src="/images/review/heart.png" alt="Heart" width="13px"> 찜</a></div>
+			  		</div>
+		  		</th:block>
+		  		
+	  		</div>
+	  		<div class="smallBanner1"></div>
+  		</div>
+  		<div class="main_top_R">
+	  		<div>
+	  			<img src="/images/main/bigBanner2.png" id="bigBanner">
+	  		</div>
+  		</div>
+  	</div>
+  
+		<div class="main_middle">
+        <div class="smallBanner2"></div>
+        <div class="classBar_Container">
+           <ul id="class_Bar">
+              <li onclick="fnList('all')"><img th:src="@{/images/main/all.png}" width="35px"><p>전체클래스</p></li>
+              <li onclick="fnNew()"><img th:src="@{/images/main/new.png}" width="30px"><p>최신클래스</p></li>
+              <li onclick="fnList('cooking')"><img th:src="@{/images/main/cooking3.png}" width="30px"><p>요리/베이킹</p></li>
+              <li onclick="fnList('fitness')"><img th:src="@{/images/main/fitness.png}" width="30px"><p>피트니스</p></li>
+              <li onclick="fnList('dance')"><img th:src="@{/images/main/dance.png}" width="30px"><p>댄스</p></li>
+              <li onclick="fnList('design')"><img th:src="@{/images/main/design.png}" width="30px"><p>디자인</p></li>
+              <li onclick="fnList('study')"><img th:src="@{/images/main/study.png}" width="30px"><p>공부</p></li>
+           </ul>
+        </div>
+     </div>
+  
+  <div class="mainList">
+  	<div th:replace="~{/classlist/classlist::listFrag}"></div>
+  </div>
+  <div th:replace="~{/layout/footer::footerFrag}"></div>
+  <script th:inline="javascript">
+   var wishList = /*[[${wishList}]]*/ null;
+
+   function chkWish() {
+      for(let i=0; i < wishList.length; i++) {
+         console.log(wishList[i]);
+         $('#' + wishList[i]).attr('src', '/images/classList/heart/heart1.png');
+      }
+   }
+   chkWish();
+
+   function fnWishAdd(vThis){
+      
+      $.ajax({
+         // 요청
+         type: 'get',
+         url: '/wish/wish.do',
+         data: 'classNo=' + $(vThis).siblings('.classNo').val(),
+         // 응답
+         dataType: 'json',
+         success: function(resData){
+            if(resData.insertResult == 1){
+               alert('찜 등록이 되었습니다.');
+            }else if(resData.removeResult == 1){
+               alert('찜 등록이 삭제되었습니다.')
+            }
+         
+         }
+         
+      })
+      
+   }
+   
+</script>
+  
+</body>
+</html>

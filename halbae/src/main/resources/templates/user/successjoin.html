@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('회원가입')}"></head>
+<link rel="stylesheet" th:href="@{/css/user/successJoin.css(ver=1.0)}">
+<link rel="stylesheet" th:href="@{/css/header.css(ver=1.0)}">
+<script th:src="@{/js/user/reg.js}"></script>
+
+<body>
+	<div th:replace="~{/layout/header::gnbFrag}"></div>
+	<div class="welcomeBody">
+		<div class="welcomeWrap">
+			<div class="imgWrap">
+				<img src="/images/logo_hb.jpg" width="300px">
+			</div>
+			<div>
+				<div class="welcomeTitle tit1">하루배움의 회원이 되신 것을 축하드립니다.</div>
+				<div class="welcomeTitle tit2">당신의 재능에 "날개"를 달아주세요!</div>
+			</div>	
+			<div class="btnWrap">
+				<button class="loginBtn" type="button" onclick="location.href='/'">주인 잘못 만난 재능 구하러 가기</button>
+			</div>
+		</div>
+	</div>
+	<!-- 회원가입시 중복된 이메일 체크할 때 alert하는 문구 저장 (같은 js를 사용해서 그냥 넣음 안넣으면 alert 뜸) -->
+  <input type="hidden" id="unqMsg">
+  <div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>

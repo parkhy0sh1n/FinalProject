@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 @Mapper를 지정한다. -->
+<mapper namespace="com.gdu.halbae.mapper.WishMapper">
+		
+		<!-- 찜목록 삽입 -->
+		<insert id="insertWishByNo" parameterType="WishDTO">
+			INSERT INTO WISH(CLASS_NO, USER_NO) VALUES(#{classNo}, #{userNo})
+		</insert>
+		
+		<!-- 찜목록 삭제 -->
+		<delete id="removeWishByNo" parameterType="WishDTO">
+			DELETE
+			  FROM WISH
+			 WHERE USER_NO = #{userNo} AND CLASS_NO = #{classNo}
+		</delete>
+		
+		<!-- 찜목록 리스트 카운트 -->
+		<select id="getWishListCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		  FROM WISH
+		 WHERE USER_NO = #{userNo}
+		</select>
+		
+		<!-- USER에 찜목록 리스트 -->
+		<select id="selectClassNoInWish" parameterType="int" resultType="int">	
+		SELECT CLASS_NO
+		  FROM WISH
+		 WHERE USER_NO = #{userNo}
+		</select>
+		
+		<!-- 찜 페이지 클래스 리스트 목록 뽑기 -->
+		<select id="selectWishList" parameterType="List" resultType="ClassListDTO">
+			SELECT CLASS_NO, CLASS_TITLE, CLASS_CATEGORY, CLASS_AREA, CLASS_TIME, CLASS_MONEY, CLASS_GRADE, CLASS_MAIN_PATH, USER_NO
+			  FROM CLASS_LIST
+			<where>			
+		  		<foreach collection="list" item="classNo" open="CLASS_NO IN(" separator="," close=")">
+		  			#{classNo}
+		  		</foreach>		  	
+		  	</where>
+		</select>
+		
+		
+
+		
+		
+		
+		
+		
+	
+</mapper>

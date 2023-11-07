@@ -1,0 +1,147 @@
+.main_container {
+    justify-content: center;
+    align-items: center;
+    }
+.main_top{
+	margin-top: 40px;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+   }
+.main_top_L {
+	margin-right: 40px;
+   }
+   
+/* 배너 변경 애니메이션 */
+#bigBanner {
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* 로그인 박스  */
+.login_box {
+	width: 350px;
+    height: 180px;
+	background-color: #efefef;
+	background-size: 350px 180px;
+	border-radius: 5px;
+	margin-bottom: 20px;
+   }
+#user_profile {
+	width: 50px;
+	margin-top: 20px;
+	margin-left: 30px;
+   }
+.pr_hi {
+	display: flex;
+   }
+#user_hi {
+	margin-top: 30px;
+	margin-left: 20px;
+   }
+#logout{
+	text-align: right;
+	padding-right: 40px;
+	text-decoration: underline;
+	font-weight: 700;
+   }
+/* 쿠폰함 & 캐시 */
+#button_wrap1 {
+	display: flex;
+	justify-content: center;
+	width: 150px;
+	height: 30px;
+	background-color: white;
+	margin: 0px 0px 10px 30px;   /* 상 우 하 좌  */
+	border-radius: 20px;
+   }
+#button_wrap1 div:nth-of-type(1) {
+	padding-right: 10px;
+   }
+#button_wrap1 div:nth-of-type(2) {
+	padding-left: 15px;
+   }
+
+/* 메세지 & 강의내역 & 찜  */
+#button_wrap2 {
+	display: flex;
+	justify-content: space-around;
+	width: 280px;
+	height: 30px;
+	background-color: white;
+	margin: 0px 0px 0px 30px;  /* 상 우 하 좌  */
+	border-radius: 20px;
+   }
+
+/* 메인 중간 */
+.main_middle {
+	margin-top: 35px;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+   }
+/* 좌측 상단배너 */
+.smallBanner1 {
+	width: 350px;
+	height: 130px;
+	background-image: url('/images/main/smallBanner2.png');
+	background-size: 350px 130px;
+	background-repeat: no-repeat;
+	border-radius: 3px;
+   }
+/* 메인배너 */
+#bigBanner {
+	width: 790px;
+	height: 330px;
+	border-radius: 3px;
+}
+
+
+/* 좌측 하단배너 */
+.smallBanner2 {
+	width: 260px;
+	height: 110px;
+	margin-left: 25px;
+	margin-right: 15px;
+	background-image: url('/images/main/smallBanner1.png');
+	background-size: 260px 110px;
+	background-repeat: no-repeat;
+	border-radius: 3px;
+   }
+
+/* 클래스 나열바 */
+#class_Bar {
+	display: flex;
+	margin-left: 20px;
+	padding-bottom: 10px;
+   }
+#class_Bar li {
+	width: 110px;
+	height: 98px;
+	margin-right: 18px;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	background-color: #f7f7f7;
+	border-radius: 8px;
+	padding: 14px;
+   }
+#class_Bar li:hover {
+	cursor: pointer;
+   }
+#class_Bar li p{
+	margin-top: 10px;
+	font-weight: 600;
+   }
+
+/* 테이블 css */
+table {
+	width: 100px;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+   }
+    
+/* 나머지 스타일은 동일하게 유지 */
+td {
+	padding: 20px;
+	text-align: center;
+   }

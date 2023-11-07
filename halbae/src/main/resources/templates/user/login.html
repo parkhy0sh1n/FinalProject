@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('로그인')}"></head>
+<link rel="stylesheet" th:href="@{/css/user/login.css(ver=1.0)}">
+<link rel="stylesheet" th:href="@{/css/header.css(ver=1.0)}">
+<script th:src="@{/js/user/reg.js(ver=1.0)}"></script>
+<script th:src="@{/js/user/checkbox.js(ver=1.0)}"></script>
+
+<script th:src="@{https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js}" charset="utf-8"></script>
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
+
+<body>
+	<div th:replace="~{/layout/header::gnbFrag}"></div>
+	<div id="loginWrap">
+		<div class="loginBox">
+			<div class="loginTitle">
+				<div>간편하게 로그인하고 하루배움의<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;다양한 튜터를 만나보세요.</div>
+			</div>	
+			<form id="loginFrm" method="post" th:action="@{/user/login.do}">
+				<input type="hidden" id="contextPath" name="contextPath">
+				<div class="loginInput">
+					<div class="inputWrap">
+						<div class="idArea">
+							<input id="userId" name="userId" placeholder="이메일 (halbae@halbae.com)">
+							<div class="idLine"></div>
+						</div>
+						<div>
+							<input type="password" id="userPw" name="userPw" placeholder="비밀번호 (숫자 대소문자 특수문자 포함 4~20자 이상)">
+							<i class="fa-regular fa-eye-slash viewPw" onclick="togglePw()"></i>
+							<div class="idLine"></div>
+						</div>
+					</div>
+				</div>
+				<div id="reg"></div>
+				<div class="loginBtnArea">
+					<div class="btnWrap">
+						<div class="autoLoginWrap">
+							<label>
+								<img src="/images/user/check_off.png">
+								<input type="checkbox" id="autoLogin" name="chkAutoLogin">
+								<span>자동로그인</span>
+							</label>
+						</div>	
+						<button>로그인 하기</button>
+						<div class="linkWrap">
+							<a th:href="@{/user/findId.html}">아이디 찾기</a>
+							<span>&nbsp;|&nbsp;</span>
+							<a th:href="@{/user/findPw.html}">비밀번호 찾기</a>
+							<span>&nbsp;|&nbsp;</span>
+							<a th:href="@{/user/join.html}">회원가입</a>
+						</div>
+					</div>
+				</div>
+			</form>
+	  </div>
+	  <div class="externalLogin">
+	  	<a th:href="${naverApiURL}"><img class="naverBtn"src="/images/user/naver.png" style="width:200px; height:50px;"></a>
+	  	<a th:href="${kakaoApiURL}"><img src="/images/user/kakao.png" style="height:50px;"></a>
+ 		</div>
+ 	</div>
+   <!-- 회원가입시 중복된 이메일 체크할 때 alert하는 문구 저장 (같은 js를 사용해서 그냥 넣음 안넣으면 alert 뜸) -->
+  <input type="hidden" id="unqMsg">
+  <div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>

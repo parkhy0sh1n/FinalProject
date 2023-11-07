@@ -1,0 +1,251 @@
+#main_wrap {
+	justify-content: center;
+	align-items: center;
+	margin-top: 50px;
+	margin-bottom: 80px;
+	}
+    
+#enroll_title {
+	margin: 0 auto;
+	width: 1000px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid gray;
+	padding-left: 30px;
+	font-size: 30px;
+	color: #4a4a49;
+	font-weight: 700;
+	}
+#main_box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	}
+#main_L {
+	width: 500px;
+	margin-top: 50px;
+	padding-right: 100px;
+	justify-content: center;
+	align-items: center;
+	border-right: 1px solid gray;
+	}
+#applyClass {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 45px;
+	}
+#classImage {
+	border-radius: 10px;
+	margin-bottom: 10px;
+	}
+
+#classTitle {
+	font-size: 18px;
+	margin-top: 10px;
+	margin-bottom: 10px;	
+	font-weight: 600;
+	}
+	
+#classinfo {
+	display: flex;
+	margin-bottom: 15px;
+	}
+	
+#classTime {
+	width: 90px;
+	height: 25px;
+	color: white;
+	background-color: #f5c2b7;
+	border-radius: 10px;
+	text-align: center;
+	margin-right: 5px;
+	}
+#classArea {
+	height: 25px;
+	padding: 0 6px 2px 6px;  /* 상0 하2 좌우6px */
+	color: white;
+	background-color: #f5c15f;
+	border-radius: 10px;
+	line-height: 25px;
+	margin-left: 3px;
+	}
+	
+#star {
+	margin-right: 10px;
+	}
+#sch {
+	margin-top: 20px;
+	padding-bottom: 5px;
+	font-size: 20px;
+	font-weight: 600;
+	}
+#schList {
+	width: 365px;
+	height: 250px;
+	border: 1px solid #d8d8d8;
+	margin-top: 15px;
+	overflow-y: scroll;  
+	}
+.schStart {
+	font-size: 17px;
+	font-weight: 500;
+	padding-left: 10px;
+	}
+.undefined {
+	font-size: 17px;
+	font-weight: 500;
+	padding-left: 10px;
+	}
+
+#main_R {
+	width: 500px;
+	padding-bottom: 40px;
+	padding-left: 80px;
+	justify-content: center;
+	align-items: center;
+	}
+	
+	
+/* 스케줄 목록 */
+.schduleList {
+    height: 90px;
+    padding: 10px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #d8d8d8;
+	}
+.scheduleArray li:last-of-type {
+    border-bottom: none;
+    margin-bottom: 10px;
+    padding: 15px;
+	}
+#inp_radio {
+	margin-right: 8px;
+	}
+#inp_radio2 {
+	flex-direction: column;
+	}
+.block {
+	display: block;
+	display: flex;
+	align-items: center;
+	margin-top: 5px;
+	margin-left: 25px;
+	}
+.schNum {
+	margin-right: 2px;
+	}
+
+.available {
+	width: 42px;
+	height: 27px;
+	color: #60bbdc;
+	text-align: center;
+	border: 1px solid #60bbdc;
+	border-radius: 10px;
+	text-align: center;
+	margin: 5px;
+	margin-left: 10px;
+	}
+.unavailable {
+	width: 42px;
+	height: 27px;
+	color: #f75535;
+	border: 1px solid #f75535;
+	border-radius: 10px;
+	text-align: center;
+	margin: 5px;
+	margin-left: 10px;
+	}
+	
+#tr_first {
+	height: 70px;
+	}
+
+#tr_second {
+	height: 70px;
+	}
+	
+/* 신청 인원 */
+#num_Title {
+	font-size: 25px;
+	font-weight: 500;
+	}
+
+#boxNum{
+	margin-bottom: 20px;
+	text-align: center;
+	}
+
+#btn_minus {
+	width: 30px;
+	height: 30px;
+	background-image: url('/images/enroll/minus.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	}
+#btn_plus {
+	width: 30px;
+	height: 30px;
+	background-image: url('/images/enroll/plus.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	}
+#enrollPerson {
+	width: 30px;
+    height: 30px;
+    padding: 0;
+    border: none;
+    font-size: 30px;
+    text-align: center;
+	}
+
+/* 전화번호 */
+#phoneNumber {
+	font-size: 25px;
+	font-weight: 500;
+	}
+#boxTel {
+	margin-bottom: 20px;
+	text-align: right;
+	}
+
+/* 튜터에게 전달 */
+#toTuter {
+	font-size: 20px;
+	font-weight: 500;
+	padding-top: 30px;
+	padding-bottom: 20px;
+	}
+	
+#toTuterBox {
+	width: 100%;
+    height: 150px;
+    border-radius: 4px;
+    border: 1px solid #eee;
+	}
+
+#toTuterBox textarea {
+	width: 350px;
+    height: 100%;
+    padding: 15px 20px;
+    border: none;
+    font-size: 15px;
+    line-height: 30px;
+    letter-spacing: -0.38px;
+    resize: none;
+	}
+
+table {
+    margin-bottom: 40px;
+	}
+
+#btn_next {
+    width: 380px;
+    height: 48px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 48px;
+    letter-spacing: -0.38px;
+    color: #fff;
+    background-color: #ff0045;
+	}

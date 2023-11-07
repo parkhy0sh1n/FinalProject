@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('이메일 찾기')}"></head>
+<link rel="stylesheet" th:href="@{/css/user/login.css(ver=1.0)}">
+<link rel="stylesheet" th:href="@{/css/header.css(ver=1.0)}">
+
+<body>
+	<div th:replace="~{/layout/header::gnbFrag}"></div>
+	<div id="loginWrap">
+		<div class="loginBox">
+			<div class="loginTitle">
+				<div>입력하신 연락처로 조회된<br>가입 내역은 다음과 같습니다.</div>
+			</div>	
+			
+			<div class="accountCaption">
+				<div>아이디</div>
+				<div>가입일</div>
+			</div>
+			
+			<div class="accountList">
+				<ul>
+					<th:block th:each="userDTO:${userDTOList}">
+						<li>
+							<div th:text="${userDTO.userId}"></div>
+							<div th:text="${#dates.format(userDTO.userJoinDate, 'yyyy.MM.dd')}"></div>
+						</li>
+					</th:block>
+				</ul>
+			</div>
+			<div class="moveLoginWrap">
+				<button class="moveTologin" type="button" onclick="location.href='/user/login.html'">로그인하러 가기</button>
+			</div>
+		</div>
+  </div>
+  <div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('Apply Form')}"></head>
+<link rel="stylesheet" th:href="@{/css/apply.css(ver=1.0)}">
+
+
+<script th:inline="javascript">
+
+	$(function(){
+		printStar();
+		fnList();
+		
+		$('.radioCheck').on('click', function(event){
+			let nowNum = $(this).parent().find('#nowNum').val();
+			let maxNum = $(this).parent().find('#maxNum').val();
+			$('#resultNowNum').val(nowNum);
+			$('#resultMaxNum').val(maxNum);
+		})
+		
+		/* 스케줄 선택 X */
+		$('#btn_next').click(function() {
+			var enrollPerson = parseInt($('#enrollPerson').val());
+			var okPerson = parseInt($('#resultMaxNum').val()) - parseInt($('#resultNowNum').val());
+			if (enrollPerson > okPerson) {
+				console.log(enrollPerson, okPerson);
+				alert('신청하신 인원 수는 정원 초과입니다.');
+				event.preventDefault();
+			    return;
+			}
+			if ($('.radioCheck:checked').length == 0) {
+				alert('스케줄을 선택해 주세요.');
+				event.preventDefault();
+			    return;
+			}
+			$('#frm').submit();
+		});
+		
+	}) // function
+
+	/* 평점 */
+	function printStar() {
+		let grade = /*[[${classList.classGrade}]]*/ null;
+		for(let i=0; i< grade; i++) {
+			$('#star').append('<i class="fa-solid fa-star" style="color: #f4575f;"></i>');
+		}
+	}
+	
+	/* 마감 클래스 클릭 시 */
+	function fnList() {
+		$('.radioCheck').on('click', function(event){
+			let state = $(this).parent().find('.stateCheck').val();
+			if(state === "0") {
+				alert('해당 클래스는 마감되었습니다 😥');
+				$(this).parent().find('.radioCheck').prop('checked', false);
+				return;
+			}
+		})
+	}
+	
+	/* 인원 + - 박스 */
+	function fnNum(element) {
+		let enrollPerson = parseInt($('#enrollPerson').val());
+		let maxNum = parseInt($('#resultMaxNum').val());
+		let nowNum = parseInt($('#resultNowNum').val());
+		if (element.id == 'btn_minus' && enrollPerson > 1) {
+			$('#enrollPerson').val(enrollPerson - 1);
+		} else if(element.id == 'btn_plus' & enrollPerson < maxNum) {
+			$('#enrollPerson').val(parseInt($('#enrollPerson').val()) + 1);
+		}
+	}
+	
+	/* 회원 ID 통해 연락처 표시 */
+	$(document).ready(function() {
+		$.ajax({
+			type: 'get',
+			url: '/enroll/user.do',
+			data: 'userNo=' + $('#userNo').val(),
+			dataType: 'json',
+			success: function(resData) {
+				var userTel = resData.userTel;
+				var format = userTel.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+				$('#userTel').val(format);
+			}
+		});
+	});
+	
+
+</script>
+
+<body>
+
+<!-- 숨겨진 파라미터-->
+<input type="hidden" value="" id="resultNowNum">
+<input type="hidden" value="" id="resultMaxNum">
+
+<div th:replace="~{/layout/header::gnbFrag}"></div>
+	<div id="main_wrap">
+  		<div id="enroll_title">강의신청</div>
+  		<form method="post" action="/enroll/apply.do" id="frm">
+  			<div id="main_box">
+		  		<div id="main_L">
+					<div th:object="${classList}" id="applyClass">
+  					<!--/* 전달용 : classNo */-->
+  					<input type="hidden" name="classNo" th:value="*{classNo}">
+						<img th:src="*{classMainPath}" width="250px" id="classImage">
+						<div>
+				  			<div th:text="*{classTitle}" id="classTitle"></div>
+				  			<div id="classinfo">
+				  				<div th:text="|*{classTime} 수업|" id="classTime"></div>
+				  				<div th:text="*{classArea}" id="classArea"></div>
+				  			</div>
+			  				<span id="star"></span><span th:text="*{classGrade}"></span>
+						</div>
+					</div>
+					<!--/* 파라미터1 : userNo */-->
+					<input type="hidden" id="userNo" name="userNo" th:value="${session.userNo}">
+					<div id="sch">현재 예정되어 있는 수업이에요.</div>
+					<div id="schList">
+					<ul class="scheduleArray">
+					
+					<th:block th:each="sch,vs:${scheduleList}">
+						<th:block th:if="${sch.schState != 2}">
+							<li class="schduleList">
+								<!--/* 파라미터2 : schNo */--> 
+								<input type="radio" th:id="|inp_radio${vs.index}|" name="schNo" th:value="${sch.schNo}" class="radioCheck">
+								<label th:for="|inp_radio${vs.index}|">
+									<span th:text="${#dates.format(sch.schStart,'yyyy년 M월 d일 H시')}" class="schStart"></span>
+									<span class="block">
+									
+									<!-- hidden 현재인원 -->
+										<input type="hidden" th:value="${sch.schNowNum}" id="nowNum">
+										<span th:text="| (${sch.schNowNum}|"></span>
+									<!-- hidden 최대인원 -->
+										<input type="hidden" th:value="${sch.schMaxNum}" id="maxNum">
+										<span th:text="| /${sch.schMaxNum}명) |" class="schNum"></span>
+					 					
+					 					<th:block th:if="${sch.schState == 0}">
+					 						<input type="hidden" class="stateCheck" value="0">
+											<span class="unavailable">마감</span>
+										</th:block>
+										<th:block th:if="${sch.schState == 1}">
+					 						<input type="hidden" class="stateCheck" value="1">
+											<span class="available">가능</span>
+										</th:block>
+									</span>
+								</label>
+							</li>
+						</th:block>
+						<th:block th:if="${sch.schState == 2}">
+							<li class="scheduleArray">
+							<input type="radio" th:id="|inp_radio${vs.index}|" name="schNo" th:value="${sch.schNo}" class="radioCheck">
+								<label th:for="|inp_radio${vs.index}|">
+									<span class="undefined">작가님과 협의 후 결정할게요 :)</span>
+									<!-- hidden -->
+										<input type="hidden" th:value="1" id="nowNum">
+										<input type="hidden" th:value="10" id="maxNum">
+								</label>
+							</li>
+						</th:block>
+					</th:block>
+							
+
+						</ul>
+					</div>
+		  		</div>
+		  		
+		  		<div id="main_R" >
+		  			<table id="tb_apply">
+		  				<tbody>
+		  					<tr id="tr_first">
+		  						<td id="num_Title">신청 인원</td>
+		  						
+		  						<td id="boxNum">
+		  							<button type="button" id="btn_minus" onclick="fnNum(this)"></button>
+		  							<!--/* 파라미터3 : enrollPerson */--> 
+					  				<input type="text" value="1" name="enrollPerson" id="enrollPerson">
+					  				<button type="button" id="btn_plus" onclick="fnNum(this)"></button>
+		  						</td>
+		  					
+		  					</tr>
+		  					<tr id="tr_second">
+		  						<td id="phoneNumber">연락처</td>
+		  						<td id="boxTel"><input type="text" disabled="disabled" id="userTel" style="height: 30px;"></td>
+		  					</tr>
+		  					<tr id="tbtr">
+		  						<td id="toTuter" colspan="2">튜터에게 전달하고 싶어요!</td>
+		  					</tr>
+		  					<tr>
+		  						<td colspan="2">
+		  							<div id="toTuterBox">
+		  								<!--/* 파라미터4 : enrollRequest */--> 
+		  								<textarea name="enrollRequest" rows="8" cols="40" placeholder="경험 유무 여부를 알려주시면 튜터님의 클래스 준비에 큰 도움이 됩니다 :) 그 외 하고 싶은 말이 있다면 남겨주세요!"></textarea>
+		  							</div>
+		  						</td>
+		  					</tr>
+		  				</tbody>
+		  			</table>
+		  			<div>
+		  				<button type="button" id="btn_next">다음</button>
+		  			</div>
+		  		</div>
+		  	</div>
+  		</form>
+  	</div>
+<div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<!-- settings -->
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+
+	<!-- typeAliases -->
+	<typeAliases>
+		<typeAlias alias="UserDTO" type="com.gdu.halbae.domain.UserDTO" />
+		<typeAlias alias="LeaveUserDTO" type="com.gdu.halbae.domain.LeaveUserDTO" />
+		<typeAlias alias="ClassListDTO" type="com.gdu.halbae.domain.ClassListDTO" />
+		<typeAlias alias="ImgClassDTO" type="com.gdu.halbae.domain.ImgClassDTO" />
+		<typeAlias alias="WishDTO" type="com.gdu.halbae.domain.WishDTO" />
+		<typeAlias alias="EnrollDTO" type="com.gdu.halbae.domain.EnrollDTO" />
+		<typeAlias alias="ScheduleDTO" type="com.gdu.halbae.domain.ScheduleDTO" />
+		<typeAlias alias="PaymentDTO" type="com.gdu.halbae.domain.PaymentDTO" />
+		<typeAlias alias="ReviewDTO" type="com.gdu.halbae.domain.ReviewDTO" />
+		<typeAlias alias="ReviewLikeDTO" type="com.gdu.halbae.domain.ReviewLikeDTO" />
+		<typeAlias alias="ReviewAttachDTO" type="com.gdu.halbae.domain.ReviewAttachDTO" />
+		<typeAlias alias="CouponDTO" type="com.gdu.halbae.domain.CouponDTO" />
+		<typeAlias alias="CouponUserDTO" type="com.gdu.halbae.domain.CouponUserDTO" />
+		<typeAlias alias="ConversationDTO" type="com.gdu.halbae.domain.ConversationDTO" />
+		<typeAlias alias="MessageDTO" type="com.gdu.halbae.domain.MessageDTO" />
+	</typeAliases>
+
+</configuration>

@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+#loginWrap {
+	display:flex;
+
+}
+
+.loginBox {
+	border: 1px solid rgb(210, 211, 213);
+	margin: 100px auto;
+	width: 420px;
+	height: 490px;
+	padding: 35px 20px;
+	
+}
+/* 로그인 위 캡션 */
+.loginTitle {
+	display: flex;
+	margin-bottom: 50px;
+}
+.loginTitle div {
+	font-size: 23px;
+	font-weight: 300;
+	margin: 0 auto;
+}
+
+/* 로그인 인풋 */
+.loginInput {
+	display:flex;
+}
+.loginInput div {
+	margin: 0 auto;
+}
+.loginInput input {
+	border:none;
+	width: 300px;
+	height: 40px;
+	outline: none;
+	padding-left: 10px;
+}
+.idLine {
+	height: 1px;
+	width: 330px;
+	background-color:#919292; 
+}
+.viewPw {
+	cursor: pointer;
+	opacity: 0.6;
+}
+#reg {
+	font-size: 14px;
+	color: red;
+	margin: 5px 0 0 30px;
+	height: 15px;
+}
+
+/* 로그인 버튼 구역 */
+.loginBtnArea {
+	margin-top: 40px;
+	display:flex;
+}
+.btnWrap {
+	text-align: center;
+	margin: 0 auto;
+}
+.btnWrap button {
+	margin-bottom: 24px;
+	width:350px;
+	height: 45px;
+	background-color: #ff0045;
+	font-size: 18px;
+	color: white;
+}
+
+/* 찾기 및 회원가입 */
+.linkWrap {
+	color: #919292;
+	font-size: 14px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

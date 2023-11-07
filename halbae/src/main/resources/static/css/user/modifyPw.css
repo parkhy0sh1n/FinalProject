@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+#loginWrap {
+	display:flex;
+
+}
+
+.loginBox {
+	border: 1px solid rgb(210, 211, 213);
+	margin: 100px auto;
+	width: 500px;
+	height: 450px;
+	padding: 35px 20px;
+	display: flex;
+	flex-direction: column;
+	
+}
+/* 로그인 위 캡션 */
+.loginTitle {
+	display: flex;
+	margin-bottom: 40px;
+}
+.loginTitle div {
+	font-size: 23px;
+	font-weight: 500;
+	margin: 0 auto;
+}
+
+/* 로그인 인풋 */
+.loginInput {
+	display:flex;
+}
+.loginInput div {
+	margin: 0 auto;
+}
+.inputTitle {
+	margin-bottom: 2px;
+	opacity: 0.7;
+}
+.usingPwTitle {
+	margin-left: 33px;
+}
+.inputArea {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+}
+.confirmPw {
+	margin-left: 10px;
+	width: 80px;
+}
+input {
+	width: 300px;
+	height: 40px;
+	outline: none;
+	padding-left: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #dbdddd;
+}
+.inputArea input[type='button']{
+	height: 40px;
+	background-color: #e93355;
+	border: 1px solid #dbdddd;
+	color: white;
+	padding: 0;
+}
+
+#userPw,
+#chkUserPw {
+	width: 390px;
+}
+
+#modifyPwFrm {
+	margin: 0 auto;
+	margin-top: 30px;
+}
+
+.modifyBtn {
+	margin: 15px auto;
+
+}
+
+
+
+
+

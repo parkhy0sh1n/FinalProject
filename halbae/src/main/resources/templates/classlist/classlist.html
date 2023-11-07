@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('전체클래스')}"></head>
+
+<script th:inline="javascript">
+$(function(){
+	var uploadResult = /*[[${uploadResult}]]*/ null;
+	if(uploadResult != null){
+		if(uploadResult == 1){
+			alert('클래스가 등록되었습니다.');
+		}else{
+			alert('클래스가 등록되지 않았습니다.');
+		}
+	}
+   
+   // 카테고리 파라미터 영어로 오는데 화면에는 한글로 표시하는 코드!
+   var categoryName = /*[[${categoryName}]]*/ null;
+   function categoryChange() {
+      if(categoryName == 'cooking' ) {
+         $('.categoryName').text('요리/베이킹');
+      }else if(categoryName == 'fitness' ){
+         $('.categoryName').text('피트니스/스포츠');
+      }else if(categoryName == 'study' ){
+         $('.categoryName').text('개발/공부');
+      }else if(categoryName == 'dance' ){
+         $('.categoryName').text('댄스');
+      }else if(categoryName == 'design' ){
+         $('.categoryName').text('디자인');
+      }
+   }
+   
+   var onLogin = /*[[${session.userNo}]]*/ null;
+   
+   $('.heart').on('click', function(){
+	  if(onLogin != null) {
+	      if($(this).attr('src') =='/images/classList/heart/heart2.png') {
+	         $(this).attr('src', '/images/classList/heart/heart1.png');                     
+	      }else {
+	         $(this).attr('src', '/images/classList/heart/heart2.png');
+	      }
+	  }
+   })
+   
+   // var wishResult = /*[[${wishResult}]]*/ null;
+   /*
+   if(wishResult != null){
+      if(wishResult == 1){
+         $('.heart').on('click', function(){
+            if($(this).attr('src') =='/images/classList/heart/heart2.png') {
+               $(this).attr('src', '/images/classList/heart/heart1.png');                     
+            }
+         })
+         alert('찜등록이 되었습니다.');
+      }else{
+         alert('찜등록이 실패했습니다.')
+      }
+   }
+   */
+   
+   /*
+   // 로그인 안하고 클릭시 (로그인 후 사용 가능합니다.) alert 띄우고, 로그인 페이지로 이동하기
+   // 찜 등록/삭제 함수
+   $('.heart').on('click', function(){
+      if($(this).attr('src') =='/images/classList/heart/heart2.png') {
+         $(this).attr('src', '/images/classList/heart/heart1.png');   
+         location.href = '/wish/wish.do?classNo=' + $(this).siblings('.classNo').val();
+      }else{
+         $(this).attr('src', '/images/classList/heart/heart2.png');
+         alert('찜에서 삭제되었습니다.');
+         location.href = '/wish/removeWish.do?classNo=' + $(this).siblings('.classNo').val();
+      }
+      
+   })
+   */
+   
+   
+   
+   
+   
+   // 함수호출
+   categoryChange();
+})
+</script>
+
+<style>
+   #category {
+      font-size: 13px;
+      margin-bottom: 15px;
+      width:100px; 
+      height:40px;
+      text-align: center;
+      border: 1px solid #DAE6EB; 
+      background-color: #FAFAFC; 
+      border-radius: 5px;
+   }
+	#category:hover {
+        background-color: #E7E9ED; 
+    }
+   button {
+	  font-size: 13px;
+      margin-bottom: 15px;
+      width:50px; 
+      height:40px;
+      text-align: center;
+      border: 1px solid #DAE6EB; 
+      background-color: #FAFAFC; 
+      border-radius: 5px;
+   }
+   	button:hover {
+        background-color: #E7E9ED; 
+    }
+   #search {
+      margin-top: 10px;
+   }
+   #class {
+      box-sizing: border-box;
+   }
+   #class ul {
+      display: flex;
+      flex-wrap: wrap;
+
+   }
+   
+   .classmini {
+      width: 280px;
+      height: 350px;
+      line-height: 30px;
+      margin-right: 10px;
+   }
+   #categoryResult {
+      color: #FF0A5D;
+      font-size: 12px;
+	  border: 1px solid #DAE6EB; 
+	  width: 120px;
+	  height:30px;
+      border-radius: 25px;
+      text-align: center;
+      padding: 3px;
+      padding-top: 4px;
+   }
+   .imgWrap {
+      display: flex;
+   }
+   .mainContainer {
+      display: flex;
+      flex-direction: column;
+      width: 1200px;
+      margin: 0 auto;
+      margin-top: 60px;
+   }
+   .addressMain1{
+      margin-top: 2px;
+       margin-bottom: 0px;
+      
+   }
+   .addressMain {
+      border: 1px solid #3390ff;
+      border-radius: 3px;
+      display: inline;
+      padding: 0px 5px;
+     	padding-bottom: 4px;
+     	font-weight: 600;
+     	 margin: 0px;
+     	
+   }
+   .address {
+      border-color: #3390ff;
+      color: #3390ff;
+      font-size: 10px;
+   }
+   .classTitle {
+   	font-size: 13px;
+   	font-weight: 430;
+   	 margin: 0px;
+   }
+   .classTitle {
+  width: 280px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+   .classTime {
+   	font-size: 12px;
+   	 margin: 0px;
+   }
+   .heartMain {
+      display: flex;
+      justify-content: space-between;
+      margin: 0px;
+   }
+   .grade {
+      color: red;
+   }
+   #pagination{
+      display: flex;
+      justify-content: center;
+   }
+.strong {
+   color: black;
+     float: left;
+     padding: 8px 16px;
+     text-decoration: none;
+     transition: background-color 0.3s;
+     border: 1px solid #ddd;
+}
+.strong,active{
+   background-color: #4CAF50;
+     color: white;
+     border: 1px solid #4CAF50;
+}
+.strong:hover:not(.active) {
+     background-color: #ddd;
+  }
+#pagination a {
+     color: black;
+     float: left;
+     padding: 8px 16px;
+     text-decoration: none;
+     transition: background-color 0.3s;
+     border: 1px solid #ddd;
+}
+
+#pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+#pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+@media screen and (max-width: 600px) {
+  #pagination a {
+    float: none;
+    display: block;
+    text-align: center;
+  }
+  .strong {
+    float: none;
+    display: block;
+    text-align: center;
+  }
+}
+
+.heart {
+	width: 15px;
+	height: 15px;
+	margin-right: 50px;
+}
+
+</style>
+
+<body>
+
+   <div th:replace="~{/layout/header::gnbFrag}"></div>
+   <div class="mainContainer">
+      <div>
+         <form th:method="get" th:action="@{/class/classList.do}">
+             <select id="category" name="classCategory">
+                    <option id="categoryChecke" value="all">카테고리</option>
+                    <option value="cooking">요리/베이킹</option>
+                    <option value="fitness">피트니스/스포츠</option>
+                    <option value="study">개발/공부</option>
+                    <option value="dance">댄스</option>
+                    <option value="design">디자인</option>
+             </select>
+            <button class="search">검색</button>
+         </form>
+      </div>
+      
+      <div id="categoryResult" th:inline="none">
+         <th:block th:if="${totalRecord == classCountAll}">
+            <span>전체 클래스</span>
+         </th:block>
+         <th:block th:if="${newClass != null}">
+            <span th:text="${newClass}"></span>
+         </th:block>
+         <th:block th:if="${totalRecord != classCountAll && newClass == null}">
+            <span class="categoryName"></span>
+         </th:block>
+      </div>
+     
+        <div>
+           <p id="search"><span>검색 결과 </span><span th:text="${totalRecord}"></span><span>개</span></p>
+        </div>
+        
+        <br>
+     
+      <div id="class" th:fragment="listFrag">
+         <ul class="classWrap">
+            <th:block th:each="class:${classList}">
+                  <li class="classmini">
+                     <a th:href="@{/class/classDetail.do(classNo=${class.classNo})}">
+                  <!-- <span th:text="${class.classNo}">클래스번호</span><span>번</span> -->
+                     <th:block th:if="${class.classNo <= 50}">
+                        <div class="imgWrap"><img th:src="${class.classMainPath}" style="width: 280px; height: 180px; border-radius: 10px;"></div>
+                     </th:block>
+                     <th:block th:if="${class.classNo > 50}">
+                        <div class="imgWrap"><img th:src="@{/class/display.do(classNo=${class.classNo})}" style="width: 280px; height: 180px; border-radius: 10px;"></div>
+                     </th:block>
+                     <div class="addressMain1">
+                        <div class="addressMain">
+                           <span class="address" th:text="${class.classArea}">위치</span>
+                        </div>
+                        <p class="classTitle" th:text="${class.classTitle}"></p>
+                        <p>
+                           <strong><span th:text="${class.classMoney}">총금액</span></strong>
+                           <span class="classTime" th:text="|/ ${class.classTime}|">소요시간</span>
+                        </p>
+                     </a>
+                        <div class="heartMain">
+                           <input type="hidden" class="classNo" th:value="${class.classNo}">
+							<span class="grade" >
+							    <span th:each="star : ${#numbers.sequence(1, 5)}">
+							        <span style="display: inline-block;" th:text="${class.classGrade >= star ? '★' : '☆'}"></span>
+							    </span>
+							</span>
+                        </div>
+                        <input type="hidden" class="classNo" th:value="${class	.classNo}">
+	                   <img th:id="${class.classNo}" class="heart" style="cursor:pointer;" th:src="@{/images/classList/heart/heart2.png}" onclick="fnWishAdd(this)">
+
+                     </div>
+                  </li>
+                  <br>
+            </th:block>
+         </ul>
+         <!-- 
+            1. 클래스 이미지에 하트 클릭시 빨간하트로 변경 및 찜목록으로 넣기
+            2. 로그인 안하고 클릭시 (로그인 후 사용 가능합니다.) alert 띄우고, 로그인 페이지로 이동하기 
+         -->
+            <script th:inline="javascript">
+               var wishList = /*[[${wishList}]]*/ null;
+               console.log(wishList);
+               function chkWish() {
+                  for(let i=0; i < wishList.length; i++) {
+                     console.log(wishList[i]);
+                     $('#' + wishList[i]).attr('src', '/images/classList/heart/heart1.png');
+                  }
+               }
+               chkWish();
+            
+               function fnWishAdd(vThis){
+                  
+                  $.ajax({
+                     // 요청
+                     type: 'get',
+                     url: '/wish/wish.do',
+                     data: 'classNo=' + $(vThis).siblings('.classNo').val(),
+                     // 응답
+                     dataType: 'json',
+                     success: function(resData){
+                        if(resData.insertResult == 1){
+                           alert('찜 등록이 되었습니다.');
+                        }else if(resData.removeResult == 1){
+                           alert('찜 등록이 삭제되었습니다.')
+                        }
+                     
+                     }
+                     
+                  })
+                  
+               }
+               
+            </script>
+         
+         <div id="pagination" th:utext="${pagination}"></div>
+         
+      </div>
+
+   </div>
+   <div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>

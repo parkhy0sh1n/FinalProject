@@ -1,0 +1,127 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 460px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    max-width: 500px;
+    background-color: #5E6783;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 60px;
+}
+
+.header p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: white;
+    margin-right: 5px;
+}
+
+.header p:first-child::after {
+    content: "2000P";
+    color: yellow;
+}
+
+.header p:last-child::after {
+    content: "500P";
+    color: yellow; 
+}
+
+.form-group {
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: center; 
+}
+
+.form-group input {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: center; 
+}
+
+.comment {
+    width: 453px;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+    margin-bottom: 38px;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 2px;
+    background: url('/images/review/star-empty.png') no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    vertical-align: middle; /* 추가된 속성 */
+}
+
+.rating label:hover,
+.rating label:hover ~ label,
+.rating input:checked ~ label {
+    background: url('/images/review/star-field.png') no-repeat;
+    background-size: contain;
+}
+
+.file {
+    display: block;
+    width: 440px;
+    padding: 10px;
+    background-color: lightgray;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.button {
+    display: block;
+    width: 460px;
+    padding: 10px;
+    background-color: #F6A2AF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}

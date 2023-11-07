@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('이메일 찾기')}"></head>
+<link rel="stylesheet" th:href="@{/css/user/modifyPw.css(ver=1.0)}">
+<link rel="stylesheet" th:href="@{/css/header.css(ver=1.0)}">
+<script th:src="@{/js/user/userFn.js(ver=1.0)}"></script>
+
+<body>
+	<div th:replace="~{/layout/header::gnbFrag}"></div>
+	<div id="loginWrap">
+		<div class="loginBox">
+			<div class="loginTitle">
+				<div>비밀번호 변경하기</div>
+			</div>	
+			<p class="inputTitle usingPwTitle">현재 비밀번호</p>
+			<div class="inputArea usingPw">
+				<div>
+					<input type="password" id="usingPw" placeholder="현재 비밀번호를 입력해주세요.">
+					<input type="hidden" id="userId" th:value="${userId}">
+					<input type="button" class="confirmPw" value="인증" onclick="fnConfirmPw()">
+				</div>
+			</div>
+			<form id="modifyPwFrm" method="post" th:action="@{/user/modifyPw.do}">
+				<p class="inputTitle">새 비밀번호</p>
+				<div class="inputArea">
+					<div>
+						<input id="userPw" name="userPw" placeholder="새 비밀번호를 입력해주세요.">
+					</div>
+				</div>
+				<p class="inputTitle">비밀번호 확인</p>
+				<div class="inputArea">
+					<div>	
+						<input id="chkUserPw" placeholder="비밀번호를 확인해주세요.">
+					</div>
+					<input type="hidden" id="confirmed">
+					<input type="hidden" name="userId" th:value="${userId}">
+					<input type="button" class="modifyBtn" value="변경하기" onclick="fnModifyPw()">
+				</div>
+			</form>
+	  </div>	
+  </div>
+  <div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>

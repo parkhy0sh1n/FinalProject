@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('Apply Form')}"></head>
+
+<link rel="stylesheet" th:href="@{/css/payment.css(ver=1.0)}">
+
+<!-- 결제 API -->
+<script th:src="@{https://cdn.iamport.kr/v1/iamport.js}"></script>
+<!-- 결제 스크립트 -->
+<script th:inline="javascript">
+	/* 객체 초기화 */
+	var IMP = window.IMP; 	// 생략 가능
+	
+	/* 결제 창 띄우기 */
+	// 신용카드
+	function requestPay(couponNo, totalCP, point, payMethod, enrollNo, classTitle, amount, userId, userName, userTel) {
+		// 가맹점 식별코드
+		IMP.init("imp51052215");
+		
+		var enrollNo = enrollNo;
+		var schNo = $('#schNo').val();
+		var classNo = $('#classNo').val();
+		var randomNumber = Math.floor(Math.random() * 1000);
+		
+		IMP.request_pay({
+			pg: "kcp",
+	      	pay_method: "card",
+	      	merchant_uid: randomNumber,
+	     	name: classTitle,
+	      	amount: amount,
+	      	buyer_email: userId,
+		    buyer_name: userName,
+		    buyer_tel: userTel
+			}, rsp => {
+				if(rsp.success) {
+					$.ajax({
+						type: 'post',
+						url: '/payment/payEnroll.do',
+						data: {
+							  enrollNo: enrollNo,
+							  couponNo: couponNo,
+							  totalCP: totalCP,
+							  point: point,
+							  payMethod: payMethod,
+							  amount: amount,
+							  schNo: schNo
+							},
+						dataType: 'json',
+						success: function(resData) {
+								location.href='/payment/paySuccess.page?enrollNo=' + resData.enrollNo;
+			     	  		}
+						})	// ajax
+					} else {
+						alert(rsp.error_msg);
+						location.href="/payment/payFail.do?enrollNo=" + enrollNo + '&classNo=' + classNo;
+					}
+				}
+			)
+		}	// requestPay
+	
+	// 카카오페이
+	function requestPay2(couponNo, totalCP, point, payMethod, enrollNo, classTitle, amount, userId, userName, userTel) {
+			// 가맹점 식별코드
+			IMP.init("imp24537365");
+		
+			var enrollNo = enrollNo;
+			var schNo = $('#schNo').val();
+			var classNo = $('#classNo').val();
+			var randomNumber = Math.floor(Math.random() * 1000);
+			
+			IMP.request_pay({
+				pg: "kakaopay",
+		      	merchant_uid: randomNumber,
+		     	name: classTitle,
+		      	amount: amount,
+		      	buyer_email: userId,
+			    buyer_name: userName,
+			    buyer_tel: userTel
+			    
+			}, rsp => {
+					if(rsp.success) {
+						$.ajax({
+							type: 'post',
+							url: '/payment/payEnroll.do',
+							data: {
+								  enrollNo: enrollNo,
+								  couponNo: couponNo,
+								  totalCP: totalCP,
+								  point: point,
+								  payMethod: payMethod,
+								  amount: amount,
+								  schNo: schNo
+								},
+							dataType: 'json',
+							success: function(resData) {
+				     	  		location.href='/payment/paySuccess.page?enrollNo=' + resData.enrollNo;
+				     	  		}
+							})	// ajax
+						} else {
+							alert(rsp.error_msg);
+							location.href="/payment/payFail.do?enrollNo=" + enrollNo + '&classNo=' + classNo;
+						}
+					}
+				)
+			}	// requestPay2
+</script>
+<!-- 회원 쿠폰 & 포인트 사용 스크립트 -->
+<script th:src="@{/js/enroll/payment.js}"></script>
+
+<script th:inline="javascript">
+	$(function(){
+		
+		/* 평점 ★로 표시 */
+		let grade = /*[[${classList.classGrade}]]*/ null;
+	
+		function printStar() {
+			for(let i=0; i< grade; i++) {
+				$('#star').append('<i class="fa-solid fa-star" style="color: #f4575f;"></i>');
+			}
+		}
+		
+		printStar();
+
+	})
+
+</script>
+
+<body>
+<!-- 숨겨진 파라미터 값 -->
+<input type="hidden" th:value="${payCoupon}" id="payCoupon">
+<input type="hidden" th:value="${payPoint}" id="payPoint">
+<input type="hidden" value="" id="totalCP">
+<input type="hidden" th:value="${session.userNo}" id="userNo">
+<input type="hidden" th:value="${schNo}" id="schNo">
+<input type="hidden" value="" id="amount">
+
+<div th:replace="~{/layout/header::gnbFrag}"></div>
+	<div id="main_wrap">
+  		<div id="enroll_title">강의신청</div>
+  			<div id="main_box">
+		  		<div id="main_L">
+					<div th:object="${classList}" id="applyClass">
+						<img th:src="*{classMainPath}" width="250px" id="classImage">
+						<div>
+				  		<div th:text="*{classTitle}" id="classTitle"></div>
+				  			<div id="classinfo">
+				  				<div th:text="|*{classTime} 수업|" id="classTime"></div>
+				  				<div th:text="*{classArea}" id="classArea"></div>
+				  			</div>
+			  				<span id="star"></span><span th:text="*{classGrade}"></span>
+						</div>
+				<!-- classNo -->
+						<input type="hidden" th:value="*{classNo}" id="classNo">
+					</div>
+				
+					<div class="discountArea">
+						<h3>쿠폰</h3>
+						<div id="couponArea">
+							<th:block th:if="${couponList == null}">
+							    <div id="cpcount">보유하신 쿠폰이 없습니다.</div>
+							</th:block>
+							<th:block th:if="${couponList != null}">
+							    <div th:text="${couponList.size()} + '장 보유'" id="cpcount"></div>
+							    <div><button id="btn_discount" th:onclick="|openCouponUse(${session.userNo})|">쿠폰 사용</button></div>
+							</th:block>
+						</div>
+						<h3>포인트</h3>
+						<div id="pointArea">
+							<th:block th:if="${user.userPoint == 0}">
+					 			<div id="ptamount" style="width: 300px;">소유하신 포인트가 없습니다.</div>
+							</th:block>
+							<th:block th:if="${user.userPoint != 0}">
+					 			<div th:text="|${user.userPoint} 원 소유|" id="ptamount"></div>
+					 			<div><button id="btn_discount" onclick="openPointUse()">포인트 사용</button></div>
+							</th:block>
+			  			</div>
+					</div>
+	
+					<div class="payHow">
+						<h3>결제수단</h3>
+						<div class="payWrap">
+							<div class="payButton">신용카드</div>
+							<div class="payButton">카카오페이</div>
+				<!-- 파라미터 : 결제수단 (카드 0, 무통장 1) -->
+							<input type="hidden" id="paymentMethodInput" name="paymentMethod" value="">
+						</div>				
+					</div>
+		  		</div>		
+		  		
+		  		<div id="main_R">
+		  		<!-- <img th:src="@{/images/enroll/cloud.png}" width="140px" style="margin-left: 300px;"> -->
+		  			<div class="receipt_area">
+		  				<h3 id="pay_title">최종 결제 금액</h3>
+		  				<table class="tb_pay" th:object="${classList}">
+		  					<tbody>
+		  						<tr class="fees">
+		  							<th>&nbsp;&nbsp;수업료</th>
+		  							<td class="classM" th:text="*{classMoney}"></td>
+		  						</tr>
+		  						<tr>
+		  							<th>(*)&nbsp;&nbsp;신청 인원</th>
+		  							<td th:text="|${session.enrollPerson}명|" id="person"></td>
+		  						</tr>
+		  						
+								<tr class="coupondiscount">
+									<!-- 파라미터 : coupon -->
+		  							<th id="cpcp">(-)&nbsp;&nbsp;쿠폰 할인</th>
+		  						</tr>
+		  						
+		  						<tr class="pointdiscount">
+									<!-- 파라미터 : point -->
+		  							<th id="ptpt">(-)&nbsp;&nbsp;포인트 할인</th>
+		  						</tr>
+		  						<tr class="line"><td></td></tr>
+		  						<tr class="total_count">
+		  							<th id="tctc">총 결제금액</th>
+		  							<td id="tctc2"></td>
+		  						</tr>
+		  					</tbody>
+		  				</table>
+						<div>
+							<p id="privacy">개인정보 제공안내<span id="notice"
+							data-describe="(주) 하루배움은 고객님께서 구매하신 서비스 및 상품의 원할한 제공을 위해 최소한의 범위 내에서 개인정보를 제공 합니다.
+							고객님께서는 제3자 제공에 동의하지 않으실 수 있으며 동의하지 않으실 경우, 일부 구매가 제한될 수 있습니다.">&nbsp;&nbsp;&nbsp;&nbsp;보기</span><p>
+							<input type="checkbox" id="ok">
+						    <label for="ok">위 내용을 확인하였으며, 결제에 동의합니다.</label>
+						</div>
+			  			<div>
+			  				<button id="btn_next" onclick="fnNext()">결제하기</button>
+			  			</div>
+		  			
+		  			</div>
+		  
+		  		</div>
+  			</div>
+	</div>
+<div th:replace="~{/layout/footer::footerFrag}"></div>  
+</body>
+</html>

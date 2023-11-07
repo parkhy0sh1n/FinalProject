@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 클래스, 일정, 썸네일 조인.. 흠 -->
+<!-- namespace는 @Mapper를 지정한다. -->
+<mapper namespace="com.gdu.halbae.mapper.EnrollMapper">
+
+
+	<resultMap type="ScheduleDTO" id="ScheduleMap">
+		<id column="SCH_NO" property="schNo" />
+	  	<result column="SCH_START" property="schStart" />
+	  	<result column="SCH_NOW_NUM" property="schNowNum" />
+	  	<result column="SCH_MAX_NUM" property="schMaxNum" />
+	  	<result column="SCH_STATE" property="schState" />
+	  	<association column="CLASS_NO" property="classListDTO">
+	    	<id column="CLASS_NO" property="classNo" />
+	    	<result column="CLASS_TITLE" property="classTitle" />
+	    	<result column="CLASS_CATEGORY" property="classCategory" />
+	    	<result column="CLASS_AREA" property="classArea" />
+	    	<result column="CLASS_TIME" property="classTime" />
+	    	<result column="CLASS_MONEY" property="classMoney" />
+	    	<result column="CLASS_GRADE" property="classGrade" />
+	    	<result column="CLASS_MAIN_PATH" property="classMainPath" />
+	    	<association javaType="UserDTO" property="userDTO">
+	    		<id column="USER_NO" property="userNo" />
+	      		<result column="USER_ID" property="userId" />
+	      		<result column="USER_PW" property="userPw" />
+	      		<result column="USER_NAME" property="userName" />
+	      		<result column="USER_TEL" property="userTel" />
+	    		<result column="USER_JOIN_DATE" property="userJoinDate" />
+	 		    <result column="USER_AUTO_LOGIN_ID" property="userAutoLoginId" />
+	    		<result column="USER_AUTO_LOGIN_EXPIRED" property="userAutoLoginExpired" />
+	    		<result column="USER_POINT" property="userPoint" />
+				<result column="USER_IMG_PATH" property="userImgPath" />
+	     		<result column="USER_IMG_ORIGIN_NAME" property="userImgOriginName" />
+	     		<result column="USER_IMG_FILE_NAME" property="userImgFileName" />
+	      		<result column="USER_HAS_IMG" property="userHasImg" />
+	    	</association>
+	  	</association>
+	</resultMap>
+	
+	<!-- *** 조 회 ***  -->
+	<!-- 강의 조회 -->
+	<select id="selectClassByNo" parameterType="int" resultType="ClassListDTO">
+		SELECT *
+		  FROM CLASS_LIST
+	 	 WHERE CLASS_NO = #{classNo}
+	</select>
+	
+	<!-- 해당 강의 스케줄 조회 -->
+	<select id="scheduleByClassNo" parameterType="int" resultMap="ScheduleMap">
+		SELECT *
+		  FROM SCHEDULE S INNER JOIN CLASS_LIST C
+		 WHERE S.CLASS_NO = C.CLASS_NO
+		   AND C.CLASS_NO = #{classNo}
+	</select>
+	
+	<!-- 스케줄 조회 -->
+	<select id="selectScheduleByNo" parameterType="int" resultType="ScheduleDTO">
+		SELECT *
+		  FROM SCHEDULE
+		 WHERE SCH_NO = #{schNo}
+	</select>
+	
+	<!-- 회원 조회 -->
+	<select id="selectUserByNo" parameterType="int" resultType="UserDTO">
+		SELECT *
+		  FROM USER
+		 WHERE USER_NO = #{userNo}
+	</select>
+	
+	
+	<!-- *** 수 강 신 청 ***  -->
+	<!-- 수강 신청 -->
+	<insert id="applyClass" parameterType="EnrollDTO">
+		INSERT INTO ENROLL(
+			USER_NO
+		  , SCH_NO
+		  , ENROLL_DATE
+		  , ENROLL_PERSON
+		  , ENROLL_REQUEST
+		) VALUES (
+	 	    #{userDTO.userNo}
+	 	  , #{scheduleDTO.schNo}
+	 	  , NOW()
+	 	  , #{enrollPerson}
+	 	  , #{enrollRequest}
+		)
+	</insert>
+	
+	<!-- 스케줄 인원 반영 -->
+	<update id="updateSchNowNum" parameterType="EnrollDTO">
+		UPDATE SCHEDULE
+		<set>
+		    <if test="scheduleDTO.schNowNum + enrollPerson lte scheduleDTO.schMaxNum">
+		   		SCH_NOW_NUM = SCH_NOW_NUM + #{enrollPerson}
+		    </if>
+		</set>
+		 WHERE SCH_NO = #{scheduleDTO.schNo}
+	</update>
+	
+	<!-- 스케줄 상태 변경 -->
+	<update id="updateSchState" parameterType="EnrollDTO">
+		UPDATE SCHEDULE
+		<set>
+			<if test="scheduleDTO.schNowNum + enrollPerson == scheduleDTO.schMaxNum">
+			SCH_STATE = 0
+			</if>
+			<if test="!(scheduleDTO.schNowNum + enrollPerson == scheduleDTO.schMaxNum)">
+			SCH_STATE = 1
+			</if>
+		</set>
+		WHERE SCH_NO = #{scheduleDTO.schNo}
+	</update>
+	
+	<!-- 수강신청 조회 -->
+	<select id="selectEnroll" parameterType="int" resultType="EnrollDTO">
+		SELECT *
+		  FROM ENROLL
+		 WHERE ENROLL_NO = #{enrollNo}
+	</select>
+	
+	<!-- 회원의 쿠폰 조회 -->
+	<select id="couponListByNo" parameterType="int" resultType="CouponDTO">
+		SELECT C.COUPON_NAME, C.COUPON_DISCOUNT
+  		  FROM COUPON C, COUPON_USER CU
+ 		 WHERE C.COUPON_NO = CU.COUPON_NO
+           AND CU.USER_NO = #{userNo}
+	</select>
+	
+</mapper>

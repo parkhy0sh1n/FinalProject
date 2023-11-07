@@ -1,0 +1,320 @@
+main_wrap {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 50px;
+	margin-bottom: 80px;
+	}
+#enroll_title {
+	margin: 0 auto;
+	width: 1100px;
+	padding-top: 30px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid gray;
+	padding-left: 30px;
+	font-size: 30px;
+	color: #4a4a49;
+	font-weight: 700;
+	}
+#main_box {
+	width: 1100px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 20px;
+	margin-bottom: 200px;
+	}
+#main_L {
+	padding-right: 80px;
+	margin-top: 50px;
+	justify-content: center;
+	align-items: center;
+	}
+#main_R {
+	padding-left: 60px;
+	}
+#applyClass {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 45px;
+	}
+#classImage {
+	border-radius: 10px;
+	margin-bottom: 10px;
+	}
+
+#classTitle {
+	font-size: 18px;
+	margin-top: 10px;
+	margin-bottom: 10px;	
+	font-weight: 600;
+	}
+	
+#classinfo {
+	display: flex;
+	margin-bottom: 15px;
+	}
+	
+#classTime {
+	width: 90px;
+	height: 25px;
+	color: white;
+	background-color: #f5c2b7;
+	border-radius: 10px;
+	text-align: center;
+	margin-right: 5px;
+	}
+#classArea {
+	height: 25px;
+	padding: 0 6px 2px 6px;  /* 상0 하2 좌우6px */
+	color: white;
+	background-color: #f5c15f;
+	border-radius: 10px;
+	line-height: 25px;
+	margin-left: 3px;
+	}
+	
+#star {
+	margin-right: 10px;
+	}
+
+/* 쿠폰&포인트 */
+.discountArea span {
+	margin-bottom: 20px;
+	}
+
+h3 {
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: -0.45px;
+    color: #333;
+	}
+#couponArea {
+	display: flex;
+	margin-bottom: 30px;
+	letter-spacing: 0.5px;
+	}
+#cpcount {
+	width: 102px;
+	height: 48px;
+	line-height: 48px;
+	}
+#pointArea {
+	display: flex;
+	margin-bottom: 30px;
+	letter-spacing: 0.5px;
+	}
+#ptamount {
+	width: 102px;
+	height: 48px;
+	line-height: 48px;
+	}
+	
+	
+#btn_discount {
+	width: 100px;
+    height: 48px;
+    margin-left: 50px;
+    border-radius: 24px;
+    line-height: 48px;
+    letter-spacing: -0.35px;
+    background-color: #efefef;
+	}
+	
+#btn_discount:hover {
+	cursor: pointer;
+	color: white;
+	background-color: #ff0045;
+	}
+	
+/* 결제수단 */
+.payHow {
+	display: flex;
+	flex-direction: column;
+    margin-top: 25px;
+	}
+.payHow h3 {
+	padding-bottom: 15px;
+	}
+
+.payWrap {
+	display: flex;
+	}
+.payButton {
+	width: 135px;
+    height: 50px;
+    text-align: center;
+    border-radius: 25px;
+    font-size: 15px;
+    line-height: 50px;
+    letter-spacing: -0.38px;
+    background-color: #efefef;
+    }
+.payButton:first-child {
+	margin-right: 28px;
+	}
+.payButton:nth-child(2) {
+	font-size: 0px;
+	width: 135px;
+    height: 50px;
+    border-radius: 25px;
+    background-image: url('/images/enroll/kakaoPay2.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+.payButton:hover {
+	cursor: pointer;
+	}
+	
+.selected:first-child {
+	width: 135px;
+    height: 50px;
+    text-align: center;
+    border-radius: 25px;
+    font-size: 15px;
+    line-height: 50px;
+    letter-spacing: -0.38px;
+    color: white;
+	background-color: #ff0045;
+	}
+.selected:first-child {
+	margin-right: 28px;
+	}
+	
+.selected:nth-child(2) {
+	width: 135px;
+    height: 50px;
+    background-image: url('/images/enroll/kakaoPay.png');
+	}
+    
+/* *** main_right *** */
+
+#pay_title {
+	margin-bottom: 25px;
+	font-weight: 500;
+    font-size: 18px;
+    line-height: 30px;
+    letter-spacing: -0.45px;
+    color: #333;
+    }
+
+table {
+	width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+	}
+
+.receipt_area {
+	width: 430px;
+    margin-top: 14px;
+    margin-left: 40px;
+    padding: 30px 35px;
+    border: 1px solid gray;
+	}
+	
+.tb_pay {
+	margin-bottom: 40px;
+    border-top: 1px solid #eee;
+	}
+
+	
+.tb_pay th {
+	width: 110px;
+    padding: 10px 0;
+    text-align: left;
+    vertical-align: top;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: -0.38px;
+    color: #666;	
+	}
+
+.tb_pay td {
+	padding-left: 20px;
+	}
+.tb_pay tr:first-child th, .tb_pay tr:first-child td {
+    padding-top: 24px;
+	}
+.fees td {
+	vertical-align: top;
+	}
+.pointdiscount {
+	padding-bottom: 15px;
+	margin-bottom:  15px;
+	}
+
+.line {
+    border-bottom: 2px solid #111;
+    }
+.line td {
+	padding-top: 10px;
+	}
+.total_count {
+	height: 20px;	
+	}
+
+#tctc {
+	padding-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    }
+#tctc2 {
+	padding-top: 9px;
+    font-size: 18px;
+    font-weight: bold;
+    }
+    
+#privacy {
+	font-size: 18px;
+	font-weight: bold;
+	padding-bottom: 10px;
+	}
+/* 보기 */
+#notice {
+	font-size: 15px;
+	font-weight: 500;
+	color: gray;
+	position: relative;
+	}
+#notice:hover::after {
+	cursor: help;
+	content: attr(data-describe);
+	position: absolute;
+	top: 20px;
+    left: 20px;
+    width: 300px;
+	height: 150px;
+	background-color: white;
+	border: 1px solid gray;
+	border-radius: 2px;
+	padding: 5px;
+	}
+
+/* 동의박스 */
+input[type=checkbox] {
+    display: none;
+	}
+input[type=checkbox] + label {
+    cursor: pointer;
+    padding-left: 33px;
+    background-repeat: no-repeat;
+    background-image: url('/images/enroll/nonchecked.png');
+    background-size: 24px;
+	}
+input[type=checkbox]:checked + label {
+    background-image: url('/images/enroll/checked.png');
+	}
+
+#btn_next {
+	margin-top: 30px;
+    width: 100%;
+    height: 48px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 48px;
+    letter-spacing: -0.38px;
+    color: #fff;
+    background-color: #ff0045;
+	}

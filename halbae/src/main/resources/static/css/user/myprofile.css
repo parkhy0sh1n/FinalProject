@@ -1,0 +1,139 @@
+@charset "UTF-8";
+
+.profileContainer {
+	display:flex;
+}
+
+.profileWrap {
+	margin: 0 auto;
+	margin-top: 60px;
+	width: 1100px;
+}
+.sectionLine {
+	width: 100%;
+	height: 2px;
+	background-color: #d6d6d9;
+	border-radius: 20%;
+}
+.profileTitle {
+	font-size: 25px;
+	font-weight: 500;
+	
+}
+.profileImgArea {
+	text-align: center;	
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin: 10px auto;
+	position: relative;
+}
+.profileImgArea img {
+	width: 150px;
+	height: 150px;
+	position: absolute;
+	left: 0;
+}
+.InfoArea {
+	padding: 30px 0;
+	display: flex;
+}
+.category {
+	width: 200px;
+	height: 40px;
+	line-height: 40px;
+}
+.content {
+	height: 40px;
+	line-height: 40px;
+}
+.userId {
+	font-size: 15px;
+	color: #888888;
+}
+
+.modifyPw {
+	width: 130px;
+	height: 40px;
+	background-color: #ea334b;
+	color: white;
+	border-radius: 4px;
+}
+.userTel {
+	font-size: 17px;
+	color: #888888;
+}
+.userName {
+	width: 200px;
+	font-size: 15px;
+	padding-left: 7px;
+	border: 1.5px solid #888888;
+	border-radius: 4px;
+	margin-right: 10px;	
+}
+.nameCaption {
+	font-size: 14px;	
+	color: #888888;
+}
+
+
+.deleteWrap {
+	position: relative;
+	height: 40px;
+}
+.deleteUser {
+	font-size: 14px;
+	opacity: 0.7;
+	text-decoration: underline;
+	position: absolute;
+	right:0;
+	cursor: pointer;
+	background-color: white;
+	margin-top: 10px;
+}
+
+/* 프로필 변경 버튼 */
+.profileBtn {
+	width: 100px;
+	margin:0 auto;
+	text-align: center;
+}
+
+#newProfile {
+ display: none;	
+}
+
+.newProfile {
+	display:inline-block;
+	background-color: #d74550;
+	padding: 5px;
+	font-size: 14px;
+	margin-bottom: 10px;
+	border-radius: 3px;
+	width: 80px;
+	height: 30px;
+	color: white;
+}
+/* 변경사항 적용하기 */
+.editProfile {
+	background-color: #ea334b;
+	color: white;
+	border-radius: 4px;
+	display:flex;
+	width: 150px;
+	height: 50px;
+	justify-content: center;
+	font-size: 20px;
+	margin: 0 auto;
+	margin-top: 40px;
+}
+
+
+
+
+
+
+
+
+

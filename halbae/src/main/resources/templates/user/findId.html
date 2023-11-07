@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('이메일 찾기')}"></head>
+<link rel="stylesheet" th:href="@{/css/user/find.css(ver=1.0)}">
+<link rel="stylesheet" th:href="@{/css/header.css(ver=1.0)}">
+<script th:src="@{/js/user/userFn.js(ver=1.0)}"></script>
+
+<body>
+	<div th:replace="~{/layout/header::gnbFrag}"></div>
+	<div id="loginWrap">
+		<div class="loginBox">
+			<div class="loginTitle">
+				<div>연락 받으실 이메일</div>
+			</div>	
+				<p class="inputTitle">연락처</p>
+				<div class="inputArea">
+					<form id="findFrm" method="post" th:action="@{/user/findId.do}">
+						<div>
+							<input id="userTel" name="userTel" placeholder="가입 시 입력한 연락처를 입력해주세요.">
+						</div>
+					</form>
+				</div>
+				<p class="inputTitle">이메일 주소</p>
+				<div class="inputArea">
+					<div>
+						<input id="email" placeholder="이메일을 입력해주세요.">
+						<button type="button" onclick="fnSendCode()">전송</button>
+					</div>
+				</div>
+				<p class="inputTitle">인증코드</p>
+				<div class="inputArea">
+					<div>	
+						<input id="authCode" placeholder="발송된 인증코드를 입력해주세요.">
+						<button class="validate">인증</button>
+					</div>
+				</div>
+	  </div>	
+  </div>
+  <div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리뷰 목록</title>
+	<script th:src="@{/js/lib/jquery-3.6.4.min.js}"></script>
+    <link rel="stylesheet" href="/css/reviewList.css" />
+</head>
+
+<script th:inline="javascript">
+
+	/* 리뷰 번호와 사용자 번호를 전달하여 좋아요 기능 처리 */
+	function likeReview(element) {
+		var reviewNo = $(element).data('review_no');
+		var userNo = $(element).data('user_no');
+		console.log(reviewNo);
+		console.log(userNo);
+	    $.ajax({
+	        url: "/review/likeReview",
+	        type: "POST",
+	        data: JSON.stringify({
+	            reviewNo: reviewNo,
+	            userNo: userNo
+	        }),
+	        contentType: "application/json",
+	        success: function (response) {
+	            if (response === "liked") {
+	                // 좋아요 버튼을 빨간색 하트로 변경
+	                $("#like-image").attr("src", "/images/review/heart.png");
+	            } else if (response === "unliked") {
+	                // 좋아요 버튼을 빈 하트로 변경
+	                $("#like-image").attr("src", "/images/review/empty-heart.png");
+	            } else if (response === "alreadyLiked") {
+	                // 이미 좋아요를 눌렀을 경우 알림 메시지 출력
+	                alert("이미 좋아요를 누르셨습니다.");
+	            } else {
+	                // 예외 처리
+	                alert("오류가 발생했습니다.");
+	            }
+	            // 좋아요 수 업데이트
+	            updateLikeCount(response);
+	        },
+	        error: function () {
+	            alert("오류가 발생했습니다.");
+	        }
+	    });
+	}
+	
+	/* 좋아요 수 업데이트 */
+	function updateLikeCount(count) {
+	    $("#like-count").text(count);
+	}
+	
+	function openPopup() {
+		var classNo =/*[[${classNo}]]*/ null;
+	    // 팝업 창을 열기 위한 설정
+	    var popupWidth = 500;
+	    var popupHeight = 1000;
+	    var left = (screen.width - popupWidth) / 2;
+	    var top = (screen.height - popupHeight) / 2;
+	    var popupOptions = 'width=' + popupWidth + ', height=' + popupHeight + ', left=' + left + ', top=' + top;
+	    // 팝업 창을 열고 해당 HTML 페이지를 로드
+	    window.open('/review/form?classNo=' + classNo, '리뷰 작성', popupOptions);
+	}
+    
+</script>
+
+<body>
+
+	<!-- 리뷰 목록 -->
+	<div>
+		<div>
+			<br>
+			<br>
+			<br>
+			<p class="t">실제 수강생의 리뷰입니다.</p>
+			<br>
+			<p class="m-1">수강생 리뷰 <span class="m-2" th:text="|${totalReviewCount}개|"></span></p>
+			<p class="m-1">수강생 평점 <span class="m-2" th:text="|${averageRating}점|"></span></p>
+			<br>
+			<br>
+			<br>
+			<!-- 리뷰 작성하기 링크 -->
+			<a href="#" th:onclick="openPopup()" style="text-decoration: underline;">리뷰 작성하기</a>
+			<input type="hidden" name="classNo" th:value="${classNo}" />
+			<br>
+			<br>
+			<br>
+		</div>
+	    <ul id="reviewList">
+	        <!-- 리뷰들을 리뷰 번호(REVIEW_NO) 내림차순으로 정렬 -->
+	        <li class="review-container" th:each="review : ${reviewList}">
+	        	<div class="left-section">
+	                <!-- 회원의 프로필사진(0이면 기본 프로필 사진, 1이면 회원이 등록한 프로필 사진) -->
+					<div class="profile-image" th:class="${review.userDTO.userHasImg == 1} ? 'profile-image' : 'profile-image no-image'">
+					    <img id="images1" th:if="${review.userDTO.userHasImg == 1}" th:src="${review.userDTO.userImgPath}" alt="Profile Image">
+					    <img id="images1" th:unless="${review.userDTO.userHasImg == 1}" src="https://img.taling.me/Content/Images/placeholders/profile-default.thumb.jpg" alt="Default Profile Image">
+					</div>
+            	</div>
+				<div class="right-section">
+					<!-- 회원 정보 -->
+					<div class="profile-info">
+						<!-- 닉네임 -->
+		                <p style="margin-bottom: 5px;" th:text="${review.userDTO.userName}"></p>
+		                <!-- 평점 -->
+						<span class="rating">
+						    <span th:each="star : ${#numbers.sequence(1, 5)}">
+						        <span style="display: inline-block;" th:text="${review.reviewGrade >= star ? '★' : '☆'}"></span>
+						    </span>
+						</span>
+		                <!-- 리뷰 작성 시간 -->
+		                <p style="font-size: 12px; color: #999999;" th:text="${#dates.format(review.writeDate, 'yyyy년 M월 d일 a h시 m분')}"></p>
+			            <!-- 리뷰 내용 -->
+			            <p th:text="${review.reviewContent}"></p>
+		            </div>
+		           <div id="reviewAttachList"></div>
+		           <script>
+		             $.ajax({
+		            	 type: 'get',
+		            	 url: '/review/getAttachList',
+		            	 data: 'reviewNo=[[${review.reviewNo}]]',
+		            	 dataType: 'json',
+		            	 success: function(resData){  // resData = [{}, {}, {}, ...]
+		            	   $('#reviewAttachList').empty();
+		            	   let str = '';
+		            	   $.each(resData, function(i, reviewAttachDTO){
+		            		   str += '<img src="/review/display.do?path=' + reviewAttachDTO.path + '&fileName=' + reviewAttachDTO.fileName + '" style="max-width: 200px; max-height: 200px;">';
+		            		   $('#reviewAttachList').append(str);
+		            	   })
+		            	 }
+		             })
+		           </script>
+	            	<!-- 좋아요 기능 -->
+					<div id="likes-container">
+					    <span id="like-button" th:data-review_no="${review.reviewNo}" th:data-user_no="${session.userNo}" onclick="likeReview(this)"> 
+					        <img id="like-image" src="/images/review/empty-heart.png" alt="Empty Heart">
+					    </span>
+					    <span id="like-count">0</span> 
+					</div>
+	            </div>
+			</li>
+		</ul>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('전체클래스')}"></head>
+
+<script th:inline="javascript">
+</script>
+
+<style>
+	
+body {
+  font-family: Arial, sans-serif;
+  
+}
+
+.container {
+  width: 700px;
+  margin: 0 auto;
+}
+
+.container div {
+  margin-bottom: 18px;
+}
+
+.hello1 {
+  font-size: 22px;
+  font-weight: 530;
+  margin-top: 10px;
+  text-align: center;
+  margin-right: 530px;
+  color: #333333;
+}
+.hello2 {
+  font-size: 22px;
+  font-weight: 530;
+  text-align: center;
+  margin-right: 305px;
+  color: #333333;
+}
+
+.hello3 {
+  margin-top: 5px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.hello4 {
+  font-size: 13px;
+  text-align: center;
+  color: #333333;
+}
+.hello5 {
+  font-size: 22px;
+  font-weight: 530;
+  margin-top: 10px;
+  text-align: center;
+  margin-right: 540px;
+  color: #333333;
+}
+.hello6 {
+  font-size: 22px;
+  font-weight: 530;
+  text-align: center;
+  margin-right: 370px;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+.guide {
+  font-size: 13px;
+  text-align: center;
+  margin-right: 295px;
+  color: #333333;
+  border: 1.3px solid #FF0A5D;
+  border-radius: 5px;
+  padding: 4px 6px;
+  font-weight: 600;
+  color: #FF0A5D;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="file"],
+input[type="text"],
+select {
+  width: 380px;
+  height:50px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #dadbe0;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.comp {
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #FF0A5D;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.comp:hover {
+  background-color: #DB0000;
+}
+
+#classList {
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #88B956;
+  color: white;
+  font-weight: 500;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#classList:hover {
+  background-color: #00A500;
+}
+
+input[type="reset"] {
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #F6F6F6;
+  color: #333333;
+  font-weight: 500;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+    margin-left: 400px;
+}
+
+input[type="reset"]:hover {
+  background-color: #E6E6E6;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+.classTitle{
+	margin-bottom: 20px;
+}
+
+#category {
+	 width:380px; 
+	 height:50px;
+	 font-size: 13px;
+	 color: #898989;
+}
+
+#classTitle{
+	width: 560px;
+	height:50px;
+	border: 1px solid #dadbe0;
+	border-radius: 4px;
+}
+#classMoney{
+	margin-bottom: 10px;
+}
+#classListMain{
+	font-size: 15px;
+	margin-left: 500px;
+}
+#classArea {
+	width: 380px;
+	height:50px;
+	border: 1px solid #dadbe0;
+	border-radius: 4px;
+}
+
+#classTime {
+	width: 380px;
+	height:50px;
+	border: 1px solid #dadbe0;
+	border-radius: 4px;
+}
+
+#classMoney {
+	width: 380px;
+	height:50px;
+	border: 1px solid #dadbe0;
+	border-radius: 4px;
+}
+
+.classMainCategory {
+	display: inline-block;
+	font-size: 13px;
+	font-weight: 500;
+}
+
+.classTitle {
+	display: inline-block;
+	font-size: 13px;
+	font-weight: 500;
+}
+.classMainPath{
+	display: inline-block;
+	font-size: 13px;
+	font-weight: 500;
+}
+.classDetailPath{
+	display: inline-block;
+	font-size: 13px;
+	font-weight: 500;
+}
+
+.classArea {
+	display: inline-block;
+	font-size: 13px;
+	font-weight: 500;
+}
+
+.classTime {
+	display: inline-block;
+	font-size: 13px;
+	font-weight: 500;
+}
+
+.classMoney {
+	display: inline-block;
+	font-size: 13px;
+	font-weight: 500;
+}
+</style>
+
+<body>
+
+	<div th:replace="~{/layout/header::gnbFrag}"></div>
+	
+	<p class="hello1">안녕하세요, 튜터님</p>
+	<p class="hello2">어떤 유형의 클래스를 진행하고 싶으신가요?</p>
+	<div class="hello3">
+		<span>
+			<span class="hello4">다양한 방법으로 튜터님의 재능을 공유해 주세요! 👉</span>
+			<a class="guide" th:href="@{https://talingtutorguide.oopy.io/}">진행방식에 대하여 ></a>
+		</span>
+	</div>
+	<!-- th:enctype="multipart/form-data" -->
+	<div class="container">
+		<form method="POST" enctype="multipart/form-data" th:action="@{/class/classAdd.do}">
+			<div class="classMainCategory">
+				<label for="categorySelect">카테고리 선택</label>
+				<select id="category" name="classCategory" required="required">
+		              <option value="cooking">요리/베이킹</option>
+		              <option value="fitness">피트니스/스포츠</option>
+		              <option value="study">개발/공부</option>
+		              <option value="dance">댄스</option>
+		              <option value="design">디자인</option>
+			    </select>
+			</div>
+			<div class="classMainPath">
+				<label for="classMainPath">커버 이미지</label>
+				<input id="classMainPath" type="file" name="classMainPath" required="required">
+			</div>
+			<div class="classDetailPath">
+				<label for="classDetailPath">상세 이미지</label>
+				<input id="classDetailPath" type="file" name="classDetailPath" required="required">
+			</div>
+			<div class="classTitle">
+				<label for="classTitle">클래스 제목</label>
+				<input id="classTitle" name="classTitle" placeholder="   어떤 재능을 가르쳐 주시나요?" required="required">
+			</div>
+			<div class="classArea">
+				<label for="classArea">클래스 위치</label>
+				<input id="classArea" name="classArea" placeholder="   어디서 재능을 가르쳐 주시나요?" required="required">
+			</div>
+			<div class="classTime">
+				<label for="classTime">클래스 시간</label>
+				<input id="classTime" name="classTime" placeholder="   진행시간을 입력해주세요." required="required">
+			</div>
+			<p class="hello5">거의 다 왔어요👏</p>
+			<p class="hello6">마지막으로 수강료를 입력해 주세요.</p>
+			<div class="classMoney">
+				<label for="classMoney">클래스 수강료</label>
+				<input id="classMoney" name="classMoney" placeholder="   수강료를 입력해주세요." required="required">
+			</div>
+			<div>
+				<input type="reset" value="다시작성">
+				<button class="comp">등록완료</button>
+				<a id="classList" th:href="@{/class/classUploadList.do}">내 클래스</a>
+			</div>
+		</form>
+	</div>
+	<div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>

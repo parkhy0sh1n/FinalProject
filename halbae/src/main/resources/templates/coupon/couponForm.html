@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쿠폰</title>
+    <script th:src="@{/js/lib/jquery-3.6.4.min.js}"></script>
+    <link rel="stylesheet" href="/css/coupon.css" />
+</head>
+
+<script th:inline="javascript">
+
+	function issueCoupon() {
+	
+		$.ajax({
+			type: 'post',
+			url: '/issueCoupon',
+			data: 'couponName=' + $('#couponName').val(),
+			dataType: 'json',
+			success: function(resData){
+				if (resData.isSuccess) {
+					let userNo = /*[[${session.userNo}]]*/ null;
+                    alert("쿠폰이 발급되었습니다.");
+                    location.href='/coupon?userNo=' + userNo;
+                } else {
+                    alert("쿠폰 발급에 실패했습니다.");
+                }
+			}
+		})
+	
+	}
+	
+</script>
+
+<body>
+
+    <form id="container">
+	    <div id="header">
+	        <h3>내쿠폰</h3>
+	    </div>
+		<div id="coupon">
+		    <input type="text" id="couponName" placeholder="&nbsp;&nbsp;&nbsp;쿠폰 코드를 입력해주세요.">
+		    <input type="button" id="button" value="등록" onclick="issueCoupon()">
+		</div>
+		<div id="m">
+			<p>사용 가능 쿠폰 <span id="count" th:text="|${couponCount}장|" style="color: red; font-weight: bold;" ></span></p>
+	    </div>
+		<div th:if="${not #lists.isEmpty(coupons)}" id="couponList">
+		    <table>
+		        <tbody>
+		            <tr th:each="coupon, stat : ${coupons}">
+		                <td>
+		                    <span th:text="|${coupon.couponName}|"
+		                          th:class="${coupon.couponName == '신규' ? 'new-coupon' : (coupon.couponName == '6월' ? 'monthly-coupon' : '')}"
+		                          style="font-weight: bold; font-size: 18px;"></span>
+		                </td>
+		                <td>
+		                    <span th:text="|${coupon.couponDiscount}%|" style="font-weight: bold; font-size: 25px; color: red;"></span>
+		                    <span style="font-weight: bold; font-size: 25px;">&nbsp;할인</span>
+		                </td>
+		                <td>
+		                    <span th:text="${#temporals.format(coupon.couponStartDate, 'yyyy-MM-dd')}" style="font-weight: bold; font-size: 13px; color: gray;"></span>
+		                    <span style="font-weight: bold; font-size: 13px; color: gray;">&nbsp;~&nbsp;</span>
+		                    <span th:text="${#temporals.format(coupon.couponEndDate, 'yyyy-MM-dd')}" style="font-weight: bold; font-size: 13px; color: gray;"></span>
+		                </td>
+		            </tr>
+		        </tbody>
+		    </table>
+		</div>
+		<div th:unless="${not #lists.isEmpty(coupons)}" style="text-align: center;">
+            <p style="font-size: 18px; font-weight: bold; color: #ED485F;">보유 중인 쿠폰이 없습니다.</p>
+        </div>
+	    <div id="info1">
+	        <p>①&nbsp;쿠폰 사용 유의사항을 꼭 숙지해주세요!</p>
+	    </div>
+	    <div id="info2">
+	        <p>- 쿠폰은 클래스 당 1장만 사용이 가능합니다.</p>
+	        <p>- 보유 쿠폰은 유효기간 내에 사용이 가능하며 만료시 재발급은 불가합니다.</p>
+	        <p>- 환불의 경우 결제 취소 및 환불 완료 시점에 유효 기간이 남아있는 경우에만</p>
+	        <p>- 사용 가능 상태로 복구되며, 경우에 따라 쿠폰은 소멸될 수 있습니다.</p>
+	        <p>- 부정한 방법으로 쿠폰이 발급된 경우 회수될 수 있습니다.</p>
+	        <p>- 쿠폰 금액이 결제 금액을 초과하는 경우 차액은 반환되지 않습니다.</p>
+	        <p>- 다른 계정으로 양도가 불가능합니다.</p>
+	        <p>- 쿠폰의 제공 내용 및 운영 방침은 회사 정책에 따라 달라질 수 있습니다.</p>
+	        <p>- 맞춤 결제(커스텀 결제) 시 쿠폰 사용이 제한됩니다.</p>
+	    </div>
+	</form>
+
+</body>
+</html>

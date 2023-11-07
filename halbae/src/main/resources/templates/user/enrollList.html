@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/layout/header::headFrag('수강 목록')}"></head>
+<link rel="stylesheet" th:href="@{/css/header.css(ver=1.0)}">
+<link rel="stylesheet" th:href="@{/css/user/myprofile.css(ver=1.0)}">
+<link rel="stylesheet" th:href="@{/css/user/enroll.css(ver=1.0)}">
+
+<body>
+
+	<div th:replace="~{/layout/header::gnbFrag}"></div>
+	
+	<script th:inline="javascript">
+		var scheduleList = /*[[${schduleList}]]*/ null;
+		var enrollList = /*[[${enrollList}]]*/ null;
+		
+		$(function() {
+			for(let i=0; i<scheduleList.length; i++) {
+				var start = scheduleList[i].schStart;
+				start = start.substring(0, 16);
+				start = start.replace('T', ' ');
+				$('#'+i).text(start);
+				
+			}
+			  var classMoneyElements = document.querySelectorAll('.classMoney');
+
+			  classMoneyElements.forEach(function(element) {
+			    var classMoneyValue = element.innerText;
+			    var classMoneyWithoutWon = classMoneyValue.replace(/원/g, '');
+
+			    element.innerText = classMoneyWithoutWon;
+			  });			
+		})
+		
+		function fnMoveClass(vThis) {
+			location.href="/class/classDetail.do?classNo=" + $(vThis).prev().val();
+		}
+		
+
+ 	</script>
+	
+	<div class="profileContainer">
+		<div class="profileWrap">
+			<div class="enrollListTitle">나의 하루배움</div>
+			<div class="sectionLine"></div>
+			
+			<div class="enrollWrap">
+				<div th:if="${enrollList.size == 0}">
+					<div class="noEnrolls1">일정이 있는 클래스만 수강목록에 노출돼요. 협의로 진행되거나 전자책, 녹화영상 클래스는 노출되지 않아요.</div>
+					<div class="noEnrolls2">수강 중인 재능이 없습니다.</div>
+				</div>
+				<div th:if="${enrollList != null}">
+					<div th:each="enroll,vs:${enrollList}">
+						<input type="hidden" th:value="${enroll.classNo}">
+						<div class="enrolls" th:onclick="fnMoveClass(this)">
+							<img class="thumbnail" th:src="${enroll.classMainPath}">
+							<div class="enrollInfo">
+								<div class="locationWrap">
+									<i class="fa-solid fa-location-dot fa-2xl location"></i>
+									<span class="area" th:text="${enroll.classArea}"></span>
+									<span class="schStart" th:id="${vs.index}"></span>
+								</div>	
+								<div class="title" th:text="${enroll.classTitle}"></div>
+								<div class="gradeWrap">
+									<span class="grade" >
+									    <span th:each="star : ${#numbers.sequence(1, 5)}">
+									        <span style="display: inline-block;" th:text="${enroll.classGrade >= star ? '★' : '☆'}"></span>
+									    </span>
+									</span>
+									<div class="paid">
+										<span class="won">₩</span>
+										<span class="classMoney" th:text="${enroll.classMoney}"></span>
+										<span class="classTime" th:text="${enroll.classTime}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div th:replace="~{/layout/footer::footerFrag}"></div>
+</body>
+</html>
